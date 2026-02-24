@@ -1,0 +1,208 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useProperty } from "@/contextapi/propertycontext";
+import ContactPopup from "@/components/ContactPopup";
+
+export default function FilterProperties({ area }) {
+  const [open, setOpen] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState("");
+
+  const { data, loading2, error2, setLocality } = useProperty();
+
+  const formattedArea = area
+    ?.replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  useEffect(() => {
+    if (formattedArea) {
+      setLocality(formattedArea);
+    }
+  }, [formattedArea]);
+
+  const formatArea = (area, unit) => {
+    if (!area) return "N/A";
+    const formattedNumber = Number(area).toLocaleString("en-IN");
+    if (!unit) return formattedNumber;
+    const formattedUnit =
+      unit.charAt(0).toUpperCase() + unit.slice(1).toLowerCase();
+    return `${formattedNumber} ${formattedUnit}`;
+  };
+
+  /* ================= LOADING ================= */
+  if (loading2) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gradient-to-b from-white to-[#f4e9ed]">
+        <div className="relative w-16 h-16">
+          <div className="absolute inset-0 rounded-full border-4 border-[#56021F]/20"></div>
+          <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#56021F] border-r-[#3d0116] animate-spin"></div>
+        </div>
+        <p className="mt-6 text-sm font-medium text-gray-600 tracking-wide">
+          Loading Rental Listings...
+        </p>
+      </div>
+    );
+  }
+
+  /* ================= ERROR ================= */
+  if (error2) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center bg-gradient-to-b from-white to-[#f4e9ed]">
+        <p className="text-red-500 text-lg">
+          Something went wrong while loading properties.
+        </p>
+      </div>
+    );
+  }
+
+  /* ================= EMPTY ================= */
+  if (!data || data.length === 0) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gradient-to-b from-white to-[#f4e9ed]">
+        <h2 className="text-2xl font-semibold text-gray-800">
+          No Rental Flats Available in {formattedArea}
+        </h2>
+        <p className="text-gray-500 mt-2">
+          New listings will be updated soon.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <section className="bg-[#F9F4F6] px-4 py-12">
+      <div className="max-w-7xl mx-auto">
+
+        {/* HEADING */}
+        <div className="text-center mb-14">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+            Flats for Rent in{" "}
+            <span className="text-[#56021F]">{formattedArea}</span>
+          </h1>
+          <p className="text-gray-600 mt-3">
+            Verified rental flats in prime residential sectors.
+          </p>
+          <div className="w-20 h-1 bg-[#56021F] mx-auto mt-6 rounded-full"></div>
+        </div>
+
+        {/* GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+          {data.map((property) => (
+            <div
+              key={property._id}
+              className="bg-white rounded-2xl border border-[#56021F]/10
+              shadow-sm hover:shadow-2xl hover:-translate-y-1
+              transition duration-300 overflow-hidden flex flex-col md:flex-row"
+            >
+
+              {/* IMAGE */}
+              <div className="relative md:w-2/5 aspect-[4/3] md:aspect-auto">
+                {property?.media?.url ? (
+                  <Image
+                    src={property.media.url}
+                    alt={property.title}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="bg-[#f4e9ed] w-full h-full flex items-center justify-center text-[#56021F] text-sm">
+                    No Image
+                  </div>
+                )}
+              </div>
+
+              {/* CONTENT */}
+              <div className="p-6 flex-1 flex flex-col">
+
+                <h2 className="text-base font-semibold text-gray-900 leading-snug">
+                  {property.title}
+                </h2>
+
+                <p className="text-sm text-gray-600 mt-1">
+                  {property.locality}
+                </p>
+
+                {/* INFO BAR */}
+                <div className="mt-4 bg-[#f9f4f6] border border-[#56021F]/20 rounded-xl px-4 py-3 text-xs flex items-center justify-between">
+
+                  <div className="flex flex-col items-center flex-1">
+                    <span className="text-gray-500">AREA</span>
+                    <span className="font-semibold text-gray-900">
+                      {formatArea(property.area, property.areaUnit)}
+                    </span>
+                  </div>
+
+                  <div className="h-8 w-px bg-[#56021F]/20"></div>
+
+                  <div className="flex flex-col items-center flex-1">
+                    <span className="text-gray-500">STATUS</span>
+                    <span className="font-semibold text-[#56021F]">
+                      {property.status || "Available"}
+                    </span>
+                  </div>
+
+                  <div className="h-8 w-px bg-[#56021F]/20"></div>
+
+                  <div className="flex flex-col items-center flex-1">
+                    <span className="text-gray-500">TYPE</span>
+                    <span className="font-semibold text-gray-900">
+                      {property.propertyType || "Residential"}
+                    </span>
+                  </div>
+
+                </div>
+
+                <p className="text-sm text-gray-600 mt-3 line-clamp-2">
+                  {property.description ||
+                    "Premium rental flat with modern amenities and excellent connectivity."}
+                </p>
+
+                <div className="flex-1" />
+
+                {/* PRICE + LINK */}
+                <div className="mt-5 flex justify-between items-center">
+
+                  {property.price && property.price > 0 ? (
+                    <p className="text-lg font-bold text-[#56021F]">
+                      ₹ {property.price.toLocaleString("en-IN")} / month
+                    </p>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setSelectedProperty(property.title);
+                        setOpen(true);
+                      }}
+                      className="bg-[#56021F] text-white px-4 py-1.5 rounded-full text-xs hover:bg-[#3d0116] transition"
+                    >
+                      Rent on Call
+                    </button>
+                  )}
+
+                  <Link
+                    href={`/properties/${property.slug}`}
+                    className="text-[#56021F] text-sm font-medium hover:underline"
+                  >
+                    View Details →
+                  </Link>
+
+                </div>
+
+              </div>
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+
+      <ContactPopup
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        propertyTitle={selectedProperty}
+      />
+    </section>
+  );
+}
