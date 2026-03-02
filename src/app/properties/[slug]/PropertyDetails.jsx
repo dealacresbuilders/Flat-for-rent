@@ -27,7 +27,7 @@ export default function PropertyDetails({ propertyy }) {
               p._id !== propertyy._id &&
               p.city?.toLowerCase() === propertyy.city?.toLowerCase()
           )
-          .slice(0, 6)
+          .slice(0, 30)
       : [];
 
   return (
@@ -101,7 +101,7 @@ export default function PropertyDetails({ propertyy }) {
                 text-sm font-medium shadow-md 
                 transition"
               >
-                Book Rental Visit
+                Call For Property Visit
               </button>
             </div>
 

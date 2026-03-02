@@ -7,7 +7,7 @@ import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
-
+import BHKFilterButtons from "@/components/BHKFilterButtons";
 export default function Properties() {
   const { properties, loading, error } = useProperty();
   const [open, setOpen] = useState(false);
@@ -74,17 +74,20 @@ export default function Properties() {
       className="bg-[#F9F4F6] px-4 py-16"
     >
       {/* HEADING */}
-      <div className="max-w-7xl mx-auto text-center mb-12">
+      <div className="max-w-7xl mx-auto  mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
           Flats for Rent in Faridabad
         </h1>
 
-        <p className="mt-4 text-gray-500 max-w-2xl mx-auto">
+        <p className="mt-4 text-gray-500 max-w-2xl ">
           Explore premium rental flats in prime sectors of Faridabad.
           Affordable 1BHK, 2BHK & 3BHK options available for families and professionals.
         </p>
 
-        <div className="w-20 h-1 bg-[#56021F] mx-auto mt-6 rounded-full"></div>
+        <div className="w-20 h-1 bg-[#56021F] mt-6 rounded-full"></div>
+         <div className="mt-8">
+    <BHKFilterButtons />
+  </div>
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -179,7 +182,7 @@ export default function Properties() {
                         hover:bg-[#3d0116] transition w-full md:w-auto 
                         text-center font-medium shadow-sm"
                       >
-                        Enquire Now
+                        Contact Now
                       </button>
 
                       <Link

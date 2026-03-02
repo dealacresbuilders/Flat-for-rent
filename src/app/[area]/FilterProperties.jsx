@@ -1,16 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { useProperty } from "@/contextapi/propertycontext";
 import Image from "next/image";
 import Link from "next/link";
-import { useProperty } from "@/contextapi/propertycontext";
 import ContactPopup from "@/components/ContactPopup";
 
 export default function FilterProperties({ area }) {
+
+  const { data, properties, loading2, error2, setLocality } = useProperty();
+
+  // ✅ SAFETY FIX (null crash prevent)
+  const safeData = Array.isArray(data) ? data : [];
+  const safeProperties = Array.isArray(properties) ? properties : [];
+
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
-
-  const { data, loading2, error2, setLocality } = useProperty();
 
   const formattedArea = area
     ?.replace(/-/g, " ")
@@ -20,16 +25,42 @@ export default function FilterProperties({ area }) {
     if (formattedArea) {
       setLocality(formattedArea);
     }
-  }, [formattedArea]);
+  }, [formattedArea, setLocality]);
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
     const formattedNumber = Number(area).toLocaleString("en-IN");
     if (!unit) return formattedNumber;
-    const formattedUnit =
-      unit.charAt(0).toUpperCase() + unit.slice(1).toLowerCase();
-    return `${formattedNumber} ${formattedUnit}`;
+    return `${formattedNumber} ${unit}`;
   };
+
+  /* ================= 150 CARD LOGIC ================= */
+
+  const finalData = useMemo(() => {
+
+    // Agar full domain data hi nahi hai
+    if (safeProperties.length === 0) {
+      return safeData;
+    }
+
+    // Filtered IDs
+    const filteredIds = new Set(
+      safeData.map((p) => p._id)
+    );
+
+    // Remaining domain properties
+    const remaining = safeProperties.filter(
+      (p) => !filteredIds.has(p._id)
+    );
+
+    const needed = 150 - safeData.length;
+
+    return [
+      ...safeData,
+      ...remaining.slice(0, needed > 0 ? needed : 0)
+    ].slice(0, 150);
+
+  }, [safeData, safeProperties]);
 
   /* ================= LOADING ================= */
   if (loading2) {
@@ -72,11 +103,11 @@ export default function FilterProperties({ area }) {
   }
 
   return (
-    <section className="bg-[#F9F4F6] px-4 py-12">
+    <section className="bg-[#F9F4F6]  py-10">
       <div className="max-w-7xl mx-auto">
 
         {/* HEADING */}
-        <div className="text-center mb-14">
+        {/* <div className="text-center mb-14">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
             Flats for Rent in{" "}
             <span className="text-[#56021F]">{formattedArea}</span>
@@ -85,12 +116,12 @@ export default function FilterProperties({ area }) {
             Verified rental flats in prime residential sectors.
           </p>
           <div className="w-20 h-1 bg-[#56021F] mx-auto mt-6 rounded-full"></div>
-        </div>
+        </div> */}
 
         {/* GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1  gap-6">
 
-          {data.map((property) => (
+          {finalData.map((property) => (
             <div
               key={property._id}
               className="bg-white rounded-2xl border border-[#56021F]/10
@@ -99,7 +130,7 @@ export default function FilterProperties({ area }) {
             >
 
               {/* IMAGE */}
-              <div className="relative md:w-2/5 aspect-[4/3] md:aspect-auto">
+              <div className="relative md:w-1/3 aspect-[4/3] md:aspect-auto">
                 {property?.media?.url ? (
                   <Image
                     src={property.media.url}
@@ -149,7 +180,7 @@ export default function FilterProperties({ area }) {
                   <div className="flex flex-col items-center flex-1">
                     <span className="text-gray-500">TYPE</span>
                     <span className="font-semibold text-gray-900">
-                      {property.propertyType || "Residential"}
+                      {property.propertyCategory}
                     </span>
                   </div>
 
@@ -163,31 +194,42 @@ export default function FilterProperties({ area }) {
                 <div className="flex-1" />
 
                 {/* PRICE + LINK */}
-                <div className="mt-5 flex justify-between items-center">
+                {/* PRICE + ACTIONS */}
+                <div className="mt-5 flex justify-between items-center flex-wrap gap-3">
 
-                  {property.price && property.price > 0 ? (
-                    <p className="text-lg font-bold text-[#56021F]">
-                      ₹ {property.price.toLocaleString("en-IN")} / month
-                    </p>
-                  ) : (
+                  {/* PRICE */}
+                  <p className="text-lg font-bold text-[#56021F]">
+                    {property.price && property.price > 0
+                      ? `₹ ${property.price.toLocaleString("en-IN")}`
+                      : "Rent on Request"}
+                  </p>
+
+                  {/* RIGHT SIDE BUTTONS */}
+                  <div className="flex items-center gap-4">
+
+                    {/* CONTACT NOW BUTTON */}
                     <button
                       onClick={() => {
                         setSelectedProperty(property.title);
                         setOpen(true);
                       }}
-                      className="bg-[#56021F] text-white px-4 py-1.5 rounded-full text-xs hover:bg-[#3d0116] transition"
+                      className="bg-[#56021F] text-white px-4 py-2 
+      rounded-full text-sm font-medium
+      hover:bg-[#3d0116] transition 
+      shadow cursor-pointer"
                     >
-                      Rent on Call
+                      Contact Now
                     </button>
-                  )}
 
-                  <Link
-                    href={`/properties/${property.slug}`}
-                    className="text-[#56021F] text-sm font-medium hover:underline"
-                  >
-                    View Details →
-                  </Link>
+                    {/* VIEW DETAILS (UNCHANGED STYLE) */}
+                    <Link
+                      href={`/properties/${property.slug}`}
+                      className="text-[#56021F] text-sm font-medium hover:underline cursor-pointer"
+                    >
+                      View Details →
+                    </Link>
 
+                  </div>
                 </div>
 
               </div>

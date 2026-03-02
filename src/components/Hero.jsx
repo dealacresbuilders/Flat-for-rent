@@ -86,9 +86,8 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg max-w-2xl text-gray-200 leading-relaxed">
-            Find affordable and premium rental flats in prime locations of
-            Faridabad. Fully furnished, semi-furnished & ready-to-move options
-            available for families and working professionals.
+                 Finding a flat for rent in Faridabad is no longer stressful or confusing. Whether you are a working professional, a family, a student, or a business owner relocating, this platform helps you discover verified rental flats across prime and emerging locations. With trusted listings, transparent pricing, and expert guidance from local property dealers, renting becomes smooth and secure. From affordable apartments to premium residences, explore rental options that perfectly match your lifestyle, budget, and location preferences.<br />
+                Flat for rent in Faridabad options are curated to save your time, eliminate middleman confusion, and offer genuine choices. Every listing is updated regularly, ensuring availability and authenticity. Our mission is simple — connect tenants with the right property quickly and confidently.
           </p>
         </div>
 

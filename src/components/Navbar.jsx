@@ -22,9 +22,18 @@ const Navbar = () => {
             {/* LOGO */}
             <Link
               href="/"
+  onClick={(e) => {
+    if (window.location.pathname === "/") {
+      e.preventDefault(); // route reload prevent
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }}
               className="text-xl sm:text-2xl font-bold tracking-wide text-[#56021F] hover:text-[#3d0116] transition"
             >
-              Flats for Rent Faridabad
+              Flat for Rent in Faridabad
             </Link>
 
             {/* ================= DESKTOP LINKS ================= */}

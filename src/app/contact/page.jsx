@@ -66,13 +66,13 @@ export default function Page() {
   }
 
   return (
-    <section className="bg-gradient-to-b from-white to-[#f4e9ed] py-20 px-4 sm:px-6">
+    <section className="bg-gradient-to-b from-white to-[#f4e9ed] py-10 px-4 sm:px-6">
 
       <div className="max-w-7xl mx-auto">
 
         {/* ================= HEADING ================= */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
             Let’s Find Your{" "}
             <span className="text-[#56021F]">
               Perfect Rental Home
