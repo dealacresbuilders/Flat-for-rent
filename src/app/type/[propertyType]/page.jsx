@@ -15,24 +15,23 @@ export default function PropertyTypePage() {
 
   const {
     properties,
-    loading,
-    error,
+    loading3,
+    error3,
     fetchPropertiesByType,
+    page,
+    totalPages
   } = useProperty();
 
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
 
   const propertySectionRef = useRef(null);
-  const itemsPerPage = 100;
 
   /* ================= FETCH BY TYPE ================= */
 
   useEffect(() => {
     if (propertyType) {
-      setCurrentPage(1);
-     fetchPropertiesByType(`${propertyType} BHK`);
+      fetchPropertiesByType(`${propertyType} BHK`, 1);
     }
   }, [propertyType]);
 
@@ -40,22 +39,27 @@ export default function PropertyTypePage() {
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
+
     const formattedNumber = Number(area).toLocaleString("en-IN");
+
     if (!unit) return formattedNumber;
+
     const formattedUnit =
       unit.charAt(0).toUpperCase() + unit.slice(1).toLowerCase();
+
     return `${formattedNumber} ${formattedUnit}`;
   };
 
   /* ================= LOADING ================= */
 
-  if (loading) {
+  if (loading3) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gradient-to-b from-white to-[#F5F7FA]">
         <div className="relative w-14 h-14">
           <div className="absolute inset-0 rounded-full border-4 border-[#56021F]-200"></div>
           <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#56021F] border-r-[#56021F] animate-spin"></div>
         </div>
+
         <p className="mt-5 text-sm font-medium text-gray-600 tracking-wide">
           Loading {propertyType} BHK Listings...
         </p>
@@ -63,7 +67,7 @@ export default function PropertyTypePage() {
     );
   }
 
-  if (error) {
+  if (error3) {
     return (
       <p className="text-center py-20 text-red-500">
         Something went wrong while loading properties.
@@ -77,6 +81,7 @@ export default function PropertyTypePage() {
         <h2 className="text-2xl font-semibold text-gray-800">
           No {propertyType} BHK Houses Available
         </h2>
+
         <p className="text-gray-500 mt-2">
           New listings will be updated soon.
         </p>
@@ -84,17 +89,12 @@ export default function PropertyTypePage() {
     );
   }
 
-  /* ================= PAGINATION ================= */
-
-  const totalItems = properties.length;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentProperties = properties.slice(startIndex, endIndex);
-
   return (
-    <section  id="propertyTop" ref={propertySectionRef} className="bg-[#F9F4F6] px-4 py-16">
+    <section id="propertyTop" ref={propertySectionRef} className="bg-[#F9F4F6] px-4 py-16">
+
       {/* HEADING */}
       <div className="max-w-7xl mx-auto mb-12">
+
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
           {propertyType} BHK Residential Houses For Sale in Faridabad
         </h1>
@@ -112,14 +112,19 @@ export default function PropertyTypePage() {
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
+
         {/* LEFT SIDE */}
         <div className="lg:col-span-2 space-y-8">
-          {currentProperties.map((property) => (
+
+          {properties.map((property) => (
+
             <div
               key={property._id}
               className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden"
             >
+
               <div className="flex flex-col md:flex-row">
+
                 <div className="relative md:w-[35%]">
                   <Image
                     src={property?.media?.url || "/no-image.png"}
@@ -130,110 +135,121 @@ export default function PropertyTypePage() {
                   />
                 </div>
 
-               <div className="p-5 flex-1 flex flex-col">
+                <div className="p-5 flex-1 flex flex-col">
 
-  <h2 className="text-lg font-semibold text-gray-900">
-    {property.title}
-  </h2>
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    {property.title}
+                  </h2>
 
-  <p className="text-sm text-gray-500 mt-1">
-    {property.locality}
-  </p>
+                  <p className="text-sm text-gray-500 mt-1">
+                    {property.locality}
+                  </p>
 
-  {/* ✅ SAME DESIGN INFO BOX */}
-  <div className="mt-4 bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 text-sm">
+                  <div className="mt-4 bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 text-sm">
 
-    <div className="flex items-center gap-2">
-      <span className="text-gray-400 uppercase text-xs tracking-wide">
-        Area:
-      </span>
-      <span className="font-semibold text-gray-900">
-        {formatArea(property.area, property.areaUnit)}
-      </span>
-    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400 uppercase text-xs">
+                        Area:
+                      </span>
 
-    <div className="hidden md:block h-4 w-px bg-gray-300" />
+                      <span className="font-semibold text-gray-900">
+                        {formatArea(property.area, property.areaUnit)}
+                      </span>
+                    </div>
 
-    <div className="flex items-center gap-2">
-      <span className="text-gray-400 uppercase text-xs tracking-wide">
-        Type:
-      </span>
-      <span className="font-semibold text-gray-900">
-        {property.propertyCategory}
-      </span>
-    </div>
+                    <div className="hidden md:block h-4 w-px bg-gray-300"></div>
 
-    <div className="hidden md:block h-4 w-px bg-gray-300" />
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400 uppercase text-xs">
+                        Type:
+                      </span>
 
-    <div className="flex items-center gap-2">
-      <span className="text-gray-400 uppercase text-xs tracking-wide">
-        Status:
-      </span>
-      <span className="font-semibold text-[#56021F]">
-        {property.status || "Ready to Move"}
-      </span>
-    </div>
-  </div>
+                      <span className="font-semibold text-gray-900">
+                        {property.propertyCategory}
+                      </span>
+                    </div>
 
-  {/* ✅ DESCRIPTION */}
-  <p className="text-sm text-gray-500 mt-4 line-clamp-2 leading-relaxed">
-    {property.description ||
-      "High-value residential asset offering strong long-term growth."}
-  </p>
+                    <div className="hidden md:block h-4 w-px bg-gray-300"></div>
 
-  <div className="flex-1" />
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400 uppercase text-xs">
+                        Status:
+                      </span>
 
-  <div className="flex flex-col md:flex-row justify-between items-center mt-5 gap-4">
-    <p className="text-2xl font-bold text-[#56021F]">
-      ₹ {property.price?.toLocaleString("en-IN")}
-    </p>
+                      <span className="font-semibold text-[#56021F]">
+                        {property.status || "Ready to Move"}
+                      </span>
+                    </div>
 
-    <div className="flex gap-3 w-full md:w-auto">
-      <button
-        onClick={() => {
-          setSelectedProperty(property.title);
-          setOpen(true);
-        }}
-        className="bg-[#56021F] text-white px-6 py-2 rounded-full hover:bg-[#56021F] transition w-full md:w-auto cursor-pointer"
-      >
-        Contact Now
-      </button>
+                  </div>
 
-      <Link
-        href={`/properties/${property.slug}`}
-        className="border border-[#56021F] text-[#56021F] px-6 py-2 rounded-full hover:bg-[#cea7b6] transition w-full md:w-auto text-center"
-      >
-        View Details
-      </Link>
-    </div>
-  </div>
+                  <p className="text-sm text-gray-500 mt-4 line-clamp-2">
+                    {property.description ||
+                      "High-value residential asset offering strong long-term growth."}
+                  </p>
 
-</div>
+                  <div className="flex-1"></div>
+
+                  <div className="flex flex-col md:flex-row justify-between items-center mt-5 gap-4">
+
+                    <p className="text-2xl font-bold text-[#56021F]">
+                      ₹ {property.price?.toLocaleString("en-IN")}
+                    </p>
+
+                    <div className="flex gap-3 w-full md:w-auto">
+
+                      <button
+                        onClick={() => {
+                          setSelectedProperty(property.title);
+                          setOpen(true);
+                        }}
+                        className="bg-[#56021F] text-white px-6 py-2 rounded-full hover:bg-[#56021F] transition w-full md:w-auto"
+                      >
+                        Contact Now
+                      </button>
+
+                      <Link
+                        href={`/properties/${property.slug}`}
+                        className="border border-[#56021F] text-[#56021F] px-6 py-2 rounded-full hover:bg-[#cea7b6] transition w-full md:w-auto text-center"
+                      >
+                        View Details
+                      </Link>
+
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
+
           ))}
 
           {/* PAGINATION */}
           <div className="mt-16">
-           <Pagination
-  totalItems={totalItems}
-  itemsPerPage={itemsPerPage}
-  currentPage={currentPage}
-  onPageChange={(page) => {
-    setCurrentPage(page);
 
-    document
-      .getElementById("propertyTop")
-      ?.scrollIntoView({ behavior: "smooth" });
-  }}
-/>
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={(newPage) => {
+
+                fetchPropertiesByType(`${propertyType} BHK`, newPage);
+
+                document
+                  .getElementById("propertyTop")
+                  ?.scrollIntoView({ behavior: "smooth" });
+
+              }}
+            />
+
           </div>
+
         </div>
 
         {/* RIGHT SIDE */}
         <div className="lg:col-span-1 sticky top-28">
           <SidebarEnquiryForm />
         </div>
+
       </div>
 
       <ContactPopup
@@ -241,6 +257,7 @@ export default function PropertyTypePage() {
         onClose={() => setOpen(false)}
         propertyTitle={selectedProperty}
       />
+
     </section>
   );
 }

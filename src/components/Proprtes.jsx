@@ -13,6 +13,7 @@ export default function Properties() {
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  console.log("data =>",properties?.length)
 
   const propertySectionRef = useRef(null);
   const itemsPerPage = 150;
