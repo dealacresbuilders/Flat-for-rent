@@ -187,7 +187,7 @@ export default function FilterProperties({ area }) {
                 </div>
 
                 <p className="text-sm text-gray-600 mt-3 line-clamp-2">
-                  {property.description ||
+                  {property.description2 ||
                     "Premium rental flat with modern amenities and excellent connectivity."}
                 </p>
 
