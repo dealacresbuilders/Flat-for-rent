@@ -8,12 +8,12 @@ import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
+
 export default function Properties() {
   const { properties, loading, error } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  console.log("data =>",properties?.length)
 
   const propertySectionRef = useRef(null);
   const itemsPerPage = 150;
@@ -72,29 +72,30 @@ export default function Properties() {
   return (
     <section
       ref={propertySectionRef}
-      className="bg-[#F9F4F6] px-4 py-16"
+      className="bg-[#F9F4F6] px-3 sm:px-4 py-12 sm:py-16"
     >
       {/* HEADING */}
-      <div className="max-w-7xl mx-auto  mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+      <div className="max-w-7xl mx-auto mb-10 sm:mb-12">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
           Flats for Rent in Faridabad
         </h1>
 
-        <p className="mt-4 text-gray-500 max-w-2xl ">
+        <p className="mt-3 sm:mt-4 text-gray-500 max-w-2xl text-sm sm:text-base">
           Explore premium rental flats in prime sectors of Faridabad.
           Affordable 1BHK, 2BHK & 3BHK options available for families and professionals.
         </p>
 
-        <div className="w-20 h-1 bg-[#56021F] mt-6 rounded-full"></div>
-         <div className="mt-8">
-    <BHKFilterButtons />
-  </div>
+        <div className="w-16 sm:w-20 h-1 bg-[#56021F] mt-4 sm:mt-6 rounded-full"></div>
+
+        <div className="mt-6 sm:mt-8">
+          <BHKFilterButtons />
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-10">
 
         {/* LEFT */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 sm:space-y-8">
           {currentProperties.map((property) => (
             <div
               key={property._id}
@@ -104,34 +105,36 @@ export default function Properties() {
             >
               <div className="flex flex-col md:flex-row">
 
-                <div className="relative md:w-[35%]">
+                {/* IMAGE */}
+                <div className="relative w-full md:w-[35%] h-48 md:h-auto">
                   <Image
                     src={property?.media?.url || "/no-image.png"}
                     alt={property.title}
                     width={600}
                     height={400}
-                    className="w-full h-52 md:h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
-                  <span className="absolute top-4 left-4 bg-[#56021F] text-white text-xs px-4 py-1 rounded-full shadow font-medium">
+                  <span className="absolute top-3 left-3 bg-[#56021F] text-white text-xs px-3 py-1 rounded-full shadow font-medium">
                     {property.propertyType}
                   </span>
                 </div>
 
-                <div className="p-5 flex-1 flex flex-col">
+                {/* CONTENT */}
+                <div className="p-4 sm:p-5 flex-1 flex flex-col">
 
-                  <h2 className="text-lg font-semibold text-gray-900">
+                  <h2 className="text-base sm:text-lg font-semibold text-gray-900">
                     {property.title}
                   </h2>
 
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1">
                     {property.locality}
                   </p>
 
                   {/* INFO BAR */}
-                  <div className="mt-4 bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 text-sm">
+                  <div className="mt-3 bg-gray-50 border border-gray-200 rounded-xl px-3 sm:px-5 py-3 flex flex-col sm:flex-row sm:flex-wrap md:flex-nowrap items-start sm:items-center justify-between gap-2 sm:gap-3 text-xs sm:text-sm">
 
                     <div>
-                      <span className="text-gray-400 uppercase text-xs tracking-wide">
+                      <span className="text-gray-400 uppercase text-[10px]">
                         Area:
                       </span>{" "}
                       <span className="font-semibold text-gray-900">
@@ -140,7 +143,7 @@ export default function Properties() {
                     </div>
 
                     <div>
-                      <span className="text-gray-400 uppercase text-xs tracking-wide">
+                      <span className="text-gray-400 uppercase text-[10px]">
                         Type:
                       </span>{" "}
                       <span className="font-semibold text-gray-900">
@@ -149,7 +152,7 @@ export default function Properties() {
                     </div>
 
                     <div>
-                      <span className="text-gray-400 uppercase text-xs tracking-wide">
+                      <span className="text-gray-400 uppercase text-[10px]">
                         Status:
                       </span>{" "}
                       <span className="font-semibold text-[#56021F]">
@@ -159,29 +162,30 @@ export default function Properties() {
 
                   </div>
 
-                  <p className="text-sm text-gray-500 mt-4 line-clamp-2 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-500 mt-3 line-clamp-2 leading-relaxed">
                     {property.description2 ||
                       "Modern rental flat in a prime location with excellent connectivity and amenities."}
                   </p>
 
                   <div className="flex-1" />
 
-                  <div className="flex flex-col md:flex-row justify-between items-center mt-5 gap-4">
+                  {/* PRICE + BUTTONS */}
+                  <div className="flex flex-col gap-3 mt-4">
 
-                    <p className="text-2xl font-bold text-[#56021F]">
+                    <p className="text-xl sm:text-2xl font-bold text-[#56021F]">
                       ₹ {property.price?.toLocaleString("en-IN")}
                     </p>
 
-                    <div className="flex gap-3 w-full md:w-auto">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
 
                       <button
                         onClick={() => {
                           setSelectedProperty(property.title);
                           setOpen(true);
                         }}
-                        className="bg-[#56021F] text-white px-6 py-2 rounded-full 
+                        className="bg-[#56021F] text-white px-4 sm:px-6 py-2 rounded-full 
                         hover:bg-[#3d0116] transition w-full md:w-auto 
-                        text-center font-medium shadow-sm"
+                        text-center font-medium shadow-sm text-sm"
                       >
                         Contact Now
                       </button>
@@ -189,8 +193,8 @@ export default function Properties() {
                       <Link
                         href={`/properties/${property.slug}`}
                         className="border border-[#56021F] text-[#56021F] 
-                        px-6 py-2 rounded-full hover:bg-[#56021F] 
-                        hover:text-white transition w-full md:w-auto text-center font-medium"
+                        px-4 sm:px-6 py-2 rounded-full hover:bg-[#56021F] 
+                        hover:text-white transition w-full md:w-auto text-center font-medium text-sm"
                       >
                         View Details
                       </Link>
@@ -204,7 +208,7 @@ export default function Properties() {
           ))}
 
           {/* PAGINATION */}
-          <div className="mt-16">
+          <div className="mt-10 sm:mt-16">
             <Pagination
               totalItems={totalItems}
               itemsPerPage={itemsPerPage}
@@ -226,7 +230,7 @@ export default function Properties() {
         </div>
 
         {/* RIGHT SIDEBAR */}
-        <div className="lg:col-span-1 sticky top-28">
+        <div className="lg:col-span-1 lg:sticky top-28">
           <SidebarEnquiryForm />
         </div>
 

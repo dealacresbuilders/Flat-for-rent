@@ -1,39 +1,58 @@
-import React from 'react'
+import React from "react";
+import BlogList from "./BlogList";
 
-import { headers } from "next/headers";
-import BlogList from './BlogList';
+// ✅ SEO Metadata (Static - Best Practice)
 export async function generateMetadata() {
-  const h = await headers();
-  const domain = h.get("host") || "localhost";
-
-  // www remove
-  const cleanDomain = domain.replace(/^www\./, "");
-
   return {
-    title: "Property & Real Estate Blogs | Trusted Property Dealer",
+    title: "Flat for Rent Blogs | Rental Tips & Property Guides",
     description:
-      "Read latest property and real estate blogs. Get house buying tips, flat rent guides, plot investment ideas and property news.",
+      "Explore blogs on flats for rent, rental tips, tenant guides, and latest real estate updates to find the perfect home.",
     keywords: [
-      "property blogs",
-      "real estate blogs",
-      "house buying tips",
-      "flat rent guide",
-      "plot investment",
-      "property news"
+      "flat for rent",
+      "rent flat in India",
+      "rental tips",
+      "tenant guide",
+      "property rent blogs",
+      "house for rent"
     ],
     alternates: {
-      canonical: `https://${cleanDomain}/blog`
+      canonical: "https://www.dealacres.com/blog", // 👈 apna real domain
     },
-  }
+
+    // 🔥 Open Graph (Social Sharing)
+    openGraph: {
+      title: "Flat for Rent Blogs | Rental Tips & Property Guides",
+      description:
+        "Read blogs on flats for rent, rental tips, and property insights.",
+      url: "https://www.dealacres.com/blog",
+      siteName: "Deal Acres",
+      images: [
+        {
+          url: "https://www.dealacres.com/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Flat for Rent Blogs",
+        },
+      ],
+      type: "website",
+    },
+
+    // 🔥 Twitter Meta
+    twitter: {
+      card: "summary_large_image",
+      title: "Flat for Rent Blogs | Rental Tips & Property Guides",
+      description:
+        "Explore rental tips and blogs for flats and houses.",
+      images: ["https://www.dealacres.com/og-image.jpg"],
+    },
+  };
 }
 
-
-
-const page = () => {
+// ✅ PAGE
+export default function Page() {
   return (
- <div className="min-h-screen bg-gradient-to-b from-white to-[#f4e9ed]">    <BlogList/>
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#f4e9ed]">
+      <BlogList />
     </div>
-  )
+  );
 }
-
-export default page
