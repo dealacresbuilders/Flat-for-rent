@@ -2,6 +2,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useBlog } from "@/contextapi/BlogContext";
+import Pagination from "@/components/Pagination";
 
 // Date formatter
 const formatDate = (date) => {
@@ -13,65 +15,42 @@ const formatDate = (date) => {
 };
 
 export default function BlogList() {
+  const { blogs, loading, error, page, total, limit, fetchBlogs } = useBlog();
 
-  const loading = false;
-  const error = null;
+  const handlePageChange = (pageNum) => {
+    fetchBlogs(pageNum);
 
-  const blogs = [
-    {
-      _id: "1",
-      Slug: "best-areas-to-rent-in-faridabad",
-      HeroImg: {
-        url: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
-      },
-      HeroAltText: "Best Areas to Rent in Faridabad",
-      Category: "Rental Guide",
-      Title: "Top Areas to Rent a Flat in Faridabad in 2024",
-      Date: "2024-05-10",
-    },
-    {
-      _id: "2",
-      Slug: "how-to-choose-perfect-rental-flat",
-      HeroImg: {
-        url: "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6",
-      },
-      HeroAltText: "How to Choose Rental Flat",
-      Category: "Rental Tips",
-      Title: "How to Choose the Perfect Rental Flat for Your Family",
-      Date: "2024-04-22",
-    },
-    {
-      _id: "3",
-      Slug: "documents-required-for-renting-flat",
-      HeroImg: {
-        url: "https://images.unsplash.com/photo-1554224155-6726b3ff858f",
-      },
-      HeroAltText: "Documents Required for Renting",
-      Category: "Legal",
-      Title: "Documents Required Before Renting a Flat in Haryana",
-      Date: "2024-03-18",
-    },
-  ];
+    const section = document.getElementById("blog-section");
+    if (section) {
+      const yOffset = -80;
+      const y =
+        section.getBoundingClientRect().top +
+        window.pageYOffset +
+        yOffset;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
 
   return (
-    <section className="px-4 sm:px-6 lg:px-0 max-w-7xl mx-auto py-16 bg-gradient-to-b from-white to-[#f4e9ed]">
+    <section
+      id="blog-section"
+      className="px-4 sm:px-6 lg:px-0 max-w-7xl mx-auto py-16 bg-gradient-to-b from-white to-[#f4e9ed]"
+    >
 
       {/* ===== HEADING ===== */}
       <div className="text-center mb-14">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-          Latest Rental Insights &{" "}
-          <span className="text-[#56021F]">Faridabad Updates</span>
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900"> Latest Rental Insights &{" "} <span className="text-[#56021F]">Faridabad Updates</span> </h2>
 
         <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-          Stay updated with rental market trends, legal tips, and expert advice
-          to find the best flats for rent in Faridabad.
+          Stay updated with expert strategies, SEO tips, and digital marketing
+          insights to grow your real estate business faster.
         </p>
 
         <div className="w-20 h-1 bg-[#56021F] mx-auto mt-6 rounded-full"></div>
       </div>
 
-      {/* ===== LOADING ===== */}
+      {/* ===== LOADING */}
       {loading && (
         <div className="flex justify-center py-20">
           <div className="relative w-14 h-14">
@@ -81,70 +60,92 @@ export default function BlogList() {
         </div>
       )}
 
-      {/* ===== ERROR ===== */}
+      {/* ===== ERROR */}
       {error && !loading && (
-        <div className="text-center py-16">
-          <h2 className="text-xl font-semibold text-red-600 mb-3">
-            Something went wrong
-          </h2>
-          <p className="text-gray-600">
-            Unable to load blogs right now.
+        <div className="text-center py-16 text-red-500">{error}</div>
+      )}
+
+      {/* ===== BLOG GRID */}
+      {!loading && !error && Array.isArray(blogs) && blogs.length > 0 && (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            {blogs.map((post, index) => (
+              <Link
+                href={`/blog/${post?.Slug || post?.slug || ""}`}
+                key={post?._id || index}
+                className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl border border-[#56021F]/10 transition duration-300 hover:-translate-y-1"
+              >
+
+                {/* IMAGE */}
+                <div className="overflow-hidden">
+                  <Image
+                    src={
+                      post?.HeroImg?.url ||
+                      post?.heroImg?.url ||
+                      post?.image ||
+                      "/fallback.jpg"
+                    }
+                    alt={post?.HeroAltText || post?.alt || "blog image"}
+                    width={600}
+                    height={350}
+                    className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                {/* CONTENT */}
+                <div className="p-6">
+
+                  <span className="inline-block text-xs font-semibold bg-[#56021F]/10 text-[#56021F] px-3 py-1 rounded-full mb-3">
+                    {post?.Category || post?.category || "General"}
+                  </span>
+
+                  <h3 className="text-lg font-semibold text-gray-900 leading-snug mb-3 group-hover:text-[#56021F] transition">
+                    {post?.Title || post?.title || "No Title"}
+                  </h3>
+
+                  <p className="text-sm text-gray-500">
+                    {formatDate(post?.Date || post?.date)}
+                  </p>
+
+                </div>
+
+              </Link>
+            ))}
+
+          </div>
+
+          {/* PAGINATION */}
+          <div className="mt-12">
+            <Pagination
+              totalItems={total}
+              itemsPerPage={limit}
+              currentPage={page}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        </>
+      )}
+
+      {/* EMPTY */}
+      {!loading && !error && Array.isArray(blogs) && blogs.length === 0 && (
+        <div className="flex flex-col items-center justify-center text-center py-20">
+
+          <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+            Blogs Coming Soon 🚀
+          </h3>
+
+          <p className="text-gray-500 mt-3 max-w-md">
+            We are working on some amazing real estate insights and updates.
           </p>
-        </div>
-      )}
 
-      {/* ===== BLOG GRID ===== */}
-      {!loading && !error && blogs?.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-6 px-6 py-2 rounded-lg bg-[#56021F] text-white hover:bg-[#3d0116] transition"
+          >
+            Refresh
+          </button>
 
-          {blogs.map((post, index) => (
-            <Link
-              href={`/blog/${post.Slug}`}
-              key={index}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl border border-[#56021F]/10 transition duration-300 hover:-translate-y-1"
-            >
-
-              {/* IMAGE */}
-              <div className="overflow-hidden">
-                <Image
-                  src={post.HeroImg?.url}
-                  alt={post?.HeroAltText}
-                  width={600}
-                  height={350}
-                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              {/* CONTENT */}
-              <div className="p-6">
-
-                {/* CATEGORY */}
-                <span className="inline-block text-xs font-semibold bg-[#56021F]/10 text-[#56021F] px-3 py-1 rounded-full mb-3">
-                  {post.Category}
-                </span>
-
-                {/* TITLE */}
-                <h3 className="text-lg font-semibold text-gray-900 leading-snug mb-3 group-hover:text-[#56021F] transition-colors duration-300">
-                  {post.Title}
-                </h3>
-
-                {/* DATE */}
-                <p className="text-sm text-gray-500">
-                  {formatDate(post.Date)}
-                </p>
-
-              </div>
-
-            </Link>
-          ))}
-
-        </div>
-      )}
-
-      {/* ===== EMPTY ===== */}
-      {!loading && !error && blogs?.length === 0 && (
-        <div className="text-center py-16 text-gray-600">
-          No blogs found.
         </div>
       )}
 

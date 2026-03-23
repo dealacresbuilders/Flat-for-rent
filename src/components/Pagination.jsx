@@ -27,17 +27,18 @@ export default function Pagination({
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex justify-center items-center gap-3 mt-14 flex-wrap">
+    <div className="flex justify-center items-center gap-2 sm:gap-3 mt-10 sm:mt-14 flex-wrap">
 
       {/* PREV */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-4 py-2 rounded-xl border border-[#56021F]/30 
-        text-[#56021F] disabled:opacity-40
-        hover:bg-[#56021F]/10 transition"
+        className="px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg sm:rounded-xl 
+        border border-[#56021F]/30 text-[#56021F] 
+        disabled:opacity-40 hover:bg-[#56021F]/10 transition"
       >
-        Prev
+        <span className="hidden sm:inline">Prev</span>
+        <span className="sm:hidden">‹</span>
       </button>
 
       {/* FIRST PAGE */}
@@ -45,13 +46,13 @@ export default function Pagination({
         <>
           <button
             onClick={() => onPageChange(1)}
-            className="px-4 py-2 rounded-xl border border-[#56021F]/30 
-            text-[#56021F] hover:bg-[#56021F]/10 transition"
+            className="px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg sm:rounded-xl 
+            border border-[#56021F]/30 text-[#56021F] hover:bg-[#56021F]/10 transition"
           >
             1
           </button>
           {visiblePages[0] > 2 && (
-            <span className="px-2 text-gray-400">...</span>
+            <span className="px-1 sm:px-2 text-gray-400 text-sm">...</span>
           )}
         </>
       )}
@@ -61,7 +62,7 @@ export default function Pagination({
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-4 py-2 rounded-xl font-medium transition
+          className={`px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg sm:rounded-xl font-medium transition
             ${
               currentPage === page
                 ? "bg-gradient-to-r from-[#56021F] to-[#3d0116] text-white shadow-md"
@@ -76,12 +77,12 @@ export default function Pagination({
       {visiblePages[visiblePages.length - 1] < totalPages && (
         <>
           {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
-            <span className="px-2 text-gray-400">...</span>
+            <span className="px-1 sm:px-2 text-gray-400 text-sm">...</span>
           )}
           <button
             onClick={() => onPageChange(totalPages)}
-            className="px-4 py-2 rounded-xl border border-[#56021F]/30 
-            text-[#56021F] hover:bg-[#56021F]/10 transition"
+            className="px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg sm:rounded-xl 
+            border border-[#56021F]/30 text-[#56021F] hover:bg-[#56021F]/10 transition"
           >
             {totalPages}
           </button>
@@ -92,11 +93,12 @@ export default function Pagination({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-4 py-2 rounded-xl border border-[#56021F]/30 
-        text-[#56021F] disabled:opacity-40
-        hover:bg-[#56021F]/10 transition"
+        className="px-2 sm:px-4 py-1.5 sm:py-2 text-sm rounded-lg sm:rounded-xl 
+        border border-[#56021F]/30 text-[#56021F] 
+        disabled:opacity-40 hover:bg-[#56021F]/10 transition"
       >
-        Next
+        <span className="hidden sm:inline">Next</span>
+        <span className="sm:hidden">›</span>
       </button>
 
     </div>
