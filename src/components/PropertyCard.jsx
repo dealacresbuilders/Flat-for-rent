@@ -83,10 +83,10 @@ export default function PropertyCard({ property }) {
 
           </div>
 
-          <p className="text-xs text-gray-500 mt-3 line-clamp-2 leading-relaxed">
+          {/* <p className="text-xs text-gray-500 mt-3 line-clamp-2 leading-relaxed">
             {property.description2 ||
               "Premium rental flat in prime location with modern amenities and excellent connectivity."}
-          </p>
+          </p> */}
 
           <div className="flex-1" />
 
