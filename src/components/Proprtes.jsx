@@ -72,6 +72,7 @@ export default function Properties() {
   return (
     <section
       ref={propertySectionRef}
+      id="locations"
       className="bg-[#F9F4F6] px-3 sm:px-4 py-12 sm:py-16"
     >
       {/* HEADING */}
