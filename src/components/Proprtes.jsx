@@ -101,12 +101,12 @@ export default function Properties() {
               key={property._id}
               className="bg-white rounded-2xl border border-gray-100 
               shadow-sm hover:shadow-2xl hover:-translate-y-1 
-              transition duration-300 overflow-hidden"
+              transition duration-300 overflow-hidden md:h-[250px]"
             >
-              <div className="flex flex-col md:flex-row">
+              <div className="flex flex-col md:flex-row md:h-full h-full">
 
                 {/* IMAGE */}
-                <div className="relative w-full md:w-[35%] h-48 md:h-auto">
+                <div className="relative w-full md:w-[45%] h-48 md:h-auto">
                   <Image
                     src={property?.media?.url || "/no-image.png"}
                     alt={property.title}
@@ -120,16 +120,31 @@ export default function Properties() {
                 </div>
 
                 {/* CONTENT */}
-                <div className="p-4 sm:p-5 flex-1 flex flex-col">
+                <div className="p-6 flex flex-col w-full min-w-0">
+  
+  <h2 className="text-xl font-bold text-gray-900 overflow-hidden md:whitespace-nowrap md:text-ellipsis">
+    {property.title}
+  </h2>
 
-                  <h2 className="text-base sm:text-lg font-semibold text-gray-900">
-                    {property.title}
-                  </h2>
+                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 21s-6-5.33-6-10a6 6 0 1112 0c0 4.67-6 10-6 10z"
+                      />
+                      <circle cx="12" cy="11" r="2.5" />
+                    </svg>
 
-                  <p className="text-xs sm:text-sm text-gray-500 mt-1">
                     {property.locality}
                   </p>
-
                   {/* INFO BAR */}
                   <div className="mt-3 bg-gray-50 border border-gray-200 rounded-xl px-3 sm:px-5 py-3 flex flex-col sm:flex-row sm:flex-wrap md:flex-nowrap items-start sm:items-center justify-between gap-2 sm:gap-3 text-xs sm:text-sm">
 
@@ -162,45 +177,48 @@ export default function Properties() {
 
                   </div>
 
-                  <p className="text-xs sm:text-sm text-gray-500 mt-3 line-clamp-2 leading-relaxed">
+                  {/* <p className="text-xs sm:text-sm text-gray-500 mt-3 line-clamp-2 leading-relaxed">
                     {property.description2 ||
                       "Modern rental flat in a prime location with excellent connectivity and amenities."}
-                  </p>
+                  </p> */}
 
                   <div className="flex-1" />
 
                   {/* PRICE + BUTTONS */}
-                  <div className="flex flex-col gap-3 mt-4">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mt-4">
 
-                    <p className="text-xl sm:text-2xl font-bold text-[#56021F]">
-                      ₹ {property.price?.toLocaleString("en-IN")}
-                    </p>
+  {/* PRICE */}
+  <p className="text-xl sm:text-2xl font-bold text-[#56021F]">
+    ₹ {property.price?.toLocaleString("en-IN")}
+  </p>
 
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
+  {/* BUTTONS */}
+  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
 
-                      <button
-                        onClick={() => {
-                          setSelectedProperty(property.title);
-                          setOpen(true);
-                        }}
-                        className="bg-[#56021F] text-white px-4 sm:px-6 py-2 rounded-full 
-                        hover:bg-[#3d0116] transition w-full md:w-auto 
-                        text-center font-medium shadow-sm text-sm"
-                      >
-                        Contact Now
-                      </button>
+    <button
+      onClick={() => {
+        setSelectedProperty(property.title);
+        setOpen(true);
+      }}
+      className="bg-[#56021F] text-white px-4 sm:px-6 py-2 rounded-full 
+      hover:bg-[#3d0116] transition w-full md:w-auto 
+      text-center font-medium shadow-sm text-sm"
+    >
+      Contact Now
+    </button>
 
-                      <Link
-                        href={`/properties/${property.slug}`}
-                        className="border border-[#56021F] text-[#56021F] 
-                        px-4 sm:px-6 py-2 rounded-full hover:bg-[#56021F] 
-                        hover:text-white transition w-full md:w-auto text-center font-medium text-sm"
-                      >
-                        View Details
-                      </Link>
+    <Link
+      href={`/properties/${property.slug}`}
+      className="border border-[#56021F] text-[#56021F] 
+      px-4 sm:px-6 py-2 rounded-full hover:bg-[#56021F] 
+      hover:text-white transition w-full md:w-auto text-center font-medium text-sm"
+    >
+      View Details
+    </Link>
 
-                    </div>
-                  </div>
+  </div>
+
+</div>
 
                 </div>
               </div>
