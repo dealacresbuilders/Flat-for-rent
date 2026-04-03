@@ -33,7 +33,7 @@ const Navbar = () => {
   }}
               className="text-xl sm:text-2xl font-bold tracking-wide text-[#56021F] hover:text-[#3d0116] transition"
             >
-              Flat for Rent in Faridabad
+              DA
             </Link>
 
             {/* ================= DESKTOP LINKS ================= */}
