@@ -20,7 +20,11 @@ export async function generateSitemap() {
     <url><loc>${baseUrl}/about</loc></url>
     <url><loc>${baseUrl}/contact</loc></url>
     <url><loc>${baseUrl}/blog</loc></url>
-    <url><loc>${baseUrl}/flat-for-rent</loc></url>
+    <url><loc>${baseUrl}/how-it-works</loc></url>
+    <url><loc>${baseUrl}/listing/1-bhk-flat-for-rent</loc></url>
+    <url><loc>${baseUrl}/listing/2-bhk-flat-for-rent</loc></url>
+    <url><loc>${baseUrl}/listing/3-bhk-flat-for-rent</loc></url>
+    <url><loc>${baseUrl}/listing/4-bhk-flat-for-rent</loc></url>
 
   `;
 
@@ -48,7 +52,7 @@ export async function generateSitemap() {
 
     return `
       <url>
-        <loc>${baseUrl}/${slug}</loc>
+        <loc>${baseUrl}/flat-for-rent-in-${slug}</loc>
       </url>
     `;
   });
@@ -57,7 +61,7 @@ export async function generateSitemap() {
   const allUrls = [
     staticUrls,
     ...locationUrls,
-    ...propertiesUrls,
+    // ...propertiesUrls,
   ].join("\n");
 
   // 🔹 XML Output
