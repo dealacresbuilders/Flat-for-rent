@@ -52,7 +52,7 @@ export default function Footer() {
               <div key={index} className="relative group overflow-visible">
 
                 <Link
-                  href={`/flat-for-rent-in-${createSlug(loc)}`}
+                  href={`/flat-for-rent-in-${createSlug(loc)}-faridabad`}
                   className="block truncate text-gray-400 hover:text-white transition duration-200"
                 >
                  Flats for Rent in {loc}

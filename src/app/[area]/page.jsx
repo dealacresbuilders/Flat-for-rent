@@ -5,7 +5,7 @@ import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 export default async function Page({ params }) {
   const resolvedParams = await params;
     // slug format → sector-9 → Sector 9
-  const rawArea = resolvedParams?.area;
+const rawArea = resolvedParams?.area;
 
 // ✅ CLEAN SLUG (IMPORTANT)
 const area = rawArea?.replace("flat-for-rent-in-", "");
@@ -28,9 +28,9 @@ const formattedArea = area
             </span>
           </h1>
 
-          <p className="text-gray-600 mt-3">
+          <h2 className="text-gray-600 mt-3">
            Rental Residential properties of this locality .
-          </p>
+          </h2>
 
           <div className="w-20 h-1 bg-[#56021F] mt-6 rounded-full"></div>
         </div>

@@ -7,7 +7,7 @@ export default function BHKFilterButtons() {
 
   // ✅ SLUG FUNCTION
   const createSlug = (bhk) => {
-    return `${bhk}-bhk-flat-for-rent`;
+    return `${bhk}-bhk-flat-for-rent-faridabad`;
   };
 
   return (
