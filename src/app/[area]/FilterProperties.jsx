@@ -130,7 +130,7 @@ export default function FilterProperties({ area }) {
             >
 
               {/* IMAGE */}
-              <div className="relative md:w-1/3 aspect-[4/3] md:aspect-auto">
+              <div className="relative md:w-[45%] aspect-[4/3] md:aspect-auto">
                 {property?.media?.url ? (
                   <Image
                     src={property.media.url}
@@ -143,6 +143,9 @@ export default function FilterProperties({ area }) {
                     No Image
                   </div>
                 )}
+                 <span className="absolute top-3 left-3 bg-[#56021F] text-white text-xs px-3 py-1 rounded-full shadow font-medium">
+                    {property.propertyType}
+                  </span>
               </div>
 
               {/* CONTENT */}
