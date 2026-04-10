@@ -5,7 +5,7 @@ export default function ContentSection() {
         <section className=" py-8 px-4">
             <div className="max-w-6xl mx-auto">
 
-                {/* TITLE */}
+            
                 <h2 className="text-2xl md:text-4xl font-bold text-[#56021F] mb-6">
                     Flat for Rent in Faridabad – Complete Guide to Find Your Perfect Home Easily
                 </h2>
@@ -13,7 +13,7 @@ export default function ContentSection() {
                      Introduction: Finding the Right Flat is Not Easy
                 </h3>
 
-                {/* INTRO */}
+            
                 <p className="text-gray-700 leading-relaxed mb-6">
                     Finding a flat for rent in Faridabad can feel confusing and stressful. There are many options, but not all are real or safe. Many people face problems like fake listings, wrong prices, or agents asking for high fees. This makes the whole process tiring.
                     People also worry about trust. Is the property real? Is the owner genuine? Will the deal be smooth?
@@ -32,8 +32,7 @@ export default function ContentSection() {
 
                 </p>
 
-                {/* FEATURES GRID */}
-                {/* FEATURES GRID */}
+                
                 <h2 className="text-2xl md:text-4xl font-bold text-[#56021F] mb-6">
                     What Our Website Does for You
                 </h2>

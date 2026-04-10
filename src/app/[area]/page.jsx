@@ -17,7 +17,7 @@ const formattedArea = area
 
   return (
     <div className="bg-[#F9F4F6] min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 py-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-0 py-10">
 
         {/* 🔥 DYNAMIC HEADING */}
         <div className=" mb-14">
