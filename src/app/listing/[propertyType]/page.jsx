@@ -131,6 +131,7 @@ useEffect(() => {
                   <Image
                     src={property?.media?.url || "/no-image.png"}
                     alt={property.title}
+                    unoptimized
                     width={600}
                     height={400}
                     className="w-full h-full object-cover"
