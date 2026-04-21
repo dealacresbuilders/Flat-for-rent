@@ -115,16 +115,19 @@ export default function PropertyCard({ property }) {
               </button>
 
               {/* VIEW DETAILS */}
-              <Link
-                href={`/properties/${property.slug}`}
-                className="flex-1 border border-[#56021F] 
-                text-[#56021F] py-1.5 rounded-full 
-                text-sm font-medium text-center
-                hover:bg-[#56021F] hover:text-white 
-                transition cursor-pointer"
-              >
-                View Rental Details
-              </Link>
+             <Link
+  href={`/properties/${property.slug}`}
+  onClick={() => {
+    localStorage.setItem("lastLocation", property.city);
+  }}
+  className="flex-1 border border-[#56021F] 
+  text-[#56021F] py-1.5 rounded-full 
+  text-sm font-medium text-center
+  hover:bg-[#56021F] hover:text-white 
+  transition cursor-pointer"
+>
+  View Rental Details
+</Link>
 
             </div>
           </div>

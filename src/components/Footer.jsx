@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Link from "next/link";
 
 import { locations } from "../data/locations";
@@ -22,6 +22,9 @@ export default function Footer() {
     ? locations
     : locations.slice(0, initialCount);
 
+useEffect(() => {
+  localStorage.setItem("lastLocation", "Faridabad");
+}, []);
   return (
     <footer className="bg-[#1a0b12] pt-16 pb-8 px-4 border-t border-[#2a121a] overflow-visible">
       <div className="max-w-7xl mx-auto overflow-visible">
