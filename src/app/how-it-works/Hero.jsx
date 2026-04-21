@@ -1,8 +1,8 @@
 "use client";
-
 export default function ContentSection() {
     return (
         <section className=" py-8 px-4">
+          
             <div className="max-w-6xl mx-auto">
 
             

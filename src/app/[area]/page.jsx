@@ -1,7 +1,7 @@
 import FilterProperties from "./FilterProperties";
 
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
-
+import Breadcrumb from "@/components/Breadcrumb";
 export default async function Page({ params }) {
   const resolvedParams = await params;
     // slug format → sector-9 → Sector 9
@@ -18,7 +18,9 @@ const formattedArea = area
   return (
     <div className="bg-[#F9F4F6] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 md:px-0 py-10">
-
+ <div className="mb-6">
+   <Breadcrumb />
+  </div>
         {/* 🔥 DYNAMIC HEADING */}
         <div className=" mb-14">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">

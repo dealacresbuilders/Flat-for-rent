@@ -9,7 +9,7 @@ import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
-
+import Breadcrumb from "@/components/Breadcrumb";
 export default function PropertyTypePage() {
   const { propertyType } = useParams();
 
@@ -36,6 +36,13 @@ useEffect(() => {
     fetchPropertiesByType(`${bhk} BHK`, 1);
   }
 }, [bhk]);
+
+
+
+useEffect(() => {
+  localStorage.setItem("lastListing", window.location.pathname);
+}, []);
+
 
   /* ================= FORMAT AREA ================= */
 
@@ -95,8 +102,11 @@ useEffect(() => {
     <section id="propertyTop" ref={propertySectionRef} className="bg-[#F9F4F6] px-4 py-16">
 
       {/* HEADING */}
-      <div className="max-w-7xl mx-auto mb-12">
-
+      <div className="max-w-7xl mx-auto mb-2">
+        <div className="py-3">
+ <Breadcrumb/>
+        </div>
+      
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
           {bhk} BHK Flats For Rent in Faridabad
         </h1>

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import toast from "react-hot-toast"
-
+import Breadcrumb from "@/components/Breadcrumb";
 export default function Page() {
   const [formData, setFormData] = useState({
     name: "",
@@ -69,16 +69,18 @@ export default function Page() {
     <section className="bg-gradient-to-b from-white to-[#f4e9ed] py-10 px-4 sm:px-6">
 
       <div className="max-w-7xl mx-auto">
-
+{/* <div className="py-5">
+          <Breadcrumb/>
+        </div> */}
         {/* ================= HEADING ================= */}
-        <div className="text-center mb-16">
+        <div className=" mb-10">
           <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
             Let’s Find Your{" "}
             <span className="text-[#56021F]">
               Perfect Rental Home
             </span>
           </h2>
-          <p className="mt-6 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-6 text-gray-600 max-w-2xl ">
             Looking for a flat on rent in Faridabad? Our rental experts will help
             you find the best options based on your budget and preferences.
           </p>

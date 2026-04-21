@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useBlog } from "@/contextapi/BlogContext";
 import "@/app/globals.css";
-
+import Breadcrumb from "@/components/Breadcrumb";
 export default function BlogDetails({ post }) {
 
   const single = post?.blog;
@@ -12,7 +12,9 @@ export default function BlogDetails({ post }) {
 
   return (
     <div className="max-w-6xl mx-auto gap-10 px-4 bg-gradient-to-b from-[#f4e9ed] to-white py-10">
-
+<div className="py-5">
+          <Breadcrumb/>
+        </div>
       {/* 🔥 LEFT SIDE */}
       <article className="lg:col-span-2 space-y-10">
 

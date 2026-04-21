@@ -9,11 +9,11 @@ import ProblemsAndMistakes from "./ProblemsAndMistakes";
 import ProcessAndListing from "./ProcessAndListing";
 import WhyFaridabad from "./WhyFaridabad";
 
-
 export default function Page() {
   return (
     <>
     <div className="bg-[#F9F4F6]">
+      
      <Hero/>
      <WhyFaridabad/>
      <PlotVsFlat/>
