@@ -33,9 +33,9 @@ export const metadata = {
   alternates: {
     canonical: "https://www.flatforrentinfaridabad.com/",
   },
-  verification: {
-    google: "nzpP1DqYCAb67c2-6EMUKICYpcL4JHBsBPPSTHE66lE",
-  },
+  // verification: {
+  //   google: "nzpP1DqYCAb67c2-6EMUKICYpcL4JHBsBPPSTHE66lE",
+  // },
    icons: {
       icon: "/favicon.ico",
       shortcut: "/favicon.ico",
@@ -49,8 +49,8 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <head>
-        {/* ✅ Google Tag Manager */}
+      {/* <head>
+       
         <Script
           id="gtm-script"
           strategy="afterInteractive"
@@ -67,7 +67,7 @@ export default function RootLayout({ children }) {
           }}
         />
 
-        {/* ✅ Google Analytics (GA4) */}
+        
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-0GWEZP3X21"
           strategy="afterInteractive"
@@ -80,20 +80,20 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-0GWEZP3X21');
           `}
         </Script>
-      </head>
+      </head> */}
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* ✅ GTM NoScript */}
-        <noscript>
+        {/* <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-MCTKVCSX"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           />
-        </noscript>
+        </noscript> */}
 
         {/* ✅ Providers */}
         <PropertyProvider>
