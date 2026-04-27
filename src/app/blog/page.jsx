@@ -4,19 +4,14 @@ import BlogList from "./BlogList";
 // ✅ SEO Metadata (Static - Best Practice)
 export async function generateMetadata() {
   return {
-    title: "Flat for Rent Blogs | Rental Tips & Property Guides",
+    title: "Flat Rental Blog | Renting Tips, Property News & Market Trends in Faridabad",
     description:
-      "Explore blogs on flats for rent, rental tips, tenant guides, and latest real estate updates to find the perfect home.",
+      "Read the latest blogs on flat renting tips in Faridabad, rental market trends, tenant rights, rent agreement guide, best localities to rent & expert real estate advice to make the right rental decision.",
     keywords: [
-      "flat for rent",
-      "rent flat in India",
-      "rental tips",
-      "tenant guide",
-      "property rent blogs",
-      "house for rent"
+     "flat rental blog Faridabad", "renting tips Faridabad", "rental market trends Faridabad", "tenant rights India", "rent agreement guide Faridabad", "best localities to rent flat Faridabad", "real estate news Faridabad", "affordable rental flats Faridabad", "flat rent price trends Faridabad", "apartment rental checklist Faridabad"
     ],
     alternates: {
-      canonical: "https://www.dealacres.com/blog", // 👈 apna real domain
+      canonical: "https://www.flatforrentinfaridabad.com/blog", // 👈 apna real domain
     },
 
     // 🔥 Open Graph (Social Sharing)
@@ -24,11 +19,11 @@ export async function generateMetadata() {
       title: "Flat for Rent Blogs | Rental Tips & Property Guides",
       description:
         "Read blogs on flats for rent, rental tips, and property insights.",
-      url: "https://www.dealacres.com/blog",
+      url: "https://www.flatforrentinfaridabad.com/blog",
       siteName: "Deal Acres",
       images: [
         {
-          url: "https://www.dealacres.com/og-image.jpg",
+          url: "https://www.flatforrentinfaridabad.com/og-image.jpg",
           width: 1200,
           height: 630,
           alt: "Flat for Rent Blogs",
@@ -43,7 +38,7 @@ export async function generateMetadata() {
       title: "Flat for Rent Blogs | Rental Tips & Property Guides",
       description:
         "Explore rental tips and blogs for flats and houses.",
-      images: ["https://www.dealacres.com/og-image.jpg"],
+      images: ["https://www.flatforrentinfaridabad.com/og-image.jpg"],
     },
   };
 }

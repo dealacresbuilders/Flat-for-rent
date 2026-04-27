@@ -42,7 +42,7 @@ export default function BlogList() {
         </div>
       {/* ===== HEADING ===== */}
       <div className=" mb-14">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900"> Latest Rental Insights &{" "} <span className="text-[#56021F]">Faridabad Updates</span> </h2>
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900"> Latest Rental Insights &{" "} <span className="text-[#56021F]">Faridabad Updates</span> </h1>
 
         <p className="text-gray-600 mt-4 max-w-2xl ">
           Stay updated with expert strategies, SEO tips, and digital marketing
@@ -103,9 +103,9 @@ export default function BlogList() {
                     {post?.Category || post?.category || "General"}
                   </span>
 
-                  <h3 className="text-lg font-semibold text-gray-900 leading-snug mb-3 group-hover:text-[#56021F] transition">
+                  <h2 className="text-lg font-semibold text-gray-900 leading-snug mb-3 group-hover:text-[#56021F] transition">
                     {post?.Title || post?.title || "No Title"}
-                  </h3>
+                  </h2>
 
                   <p className="text-sm text-gray-500">
                     {formatDate(post?.Date || post?.date)}

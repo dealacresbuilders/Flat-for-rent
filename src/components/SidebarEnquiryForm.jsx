@@ -64,9 +64,9 @@ const SidebarEnquiryForm = () => {
     <div className="sticky top-28 bg-white rounded-2xl shadow-xl 
     p-8 border border-gray-200">
 
-      <h3 className="text-2xl font-semibold text-[#56021F] mb-2">
+      <h2 className="text-2xl font-semibold text-[#56021F] mb-2">
         Get Rental Consultation
-      </h3>
+      </h2>
 
       <p className="text-sm text-gray-600 mb-6 leading-relaxed">
         Share your rental requirement and our property expert will contact you
