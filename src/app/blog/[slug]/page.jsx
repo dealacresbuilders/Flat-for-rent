@@ -42,7 +42,7 @@ export async function generateMetadata({ params }) {
 
   if (!single) {
     return {
-      title: "Parcharmanch – Blog",
+      title: "Flat for Rent in Faridabad - Blog",
       description: "Explore the latest blogs and articles on Parcharmanch.",
     };
   }
@@ -51,9 +51,9 @@ export async function generateMetadata({ params }) {
     title: single?.MetaTitle || single?.Title || "Parcharmanch Blog",
     description:
       single?.MetaDescription ||
-      "Read insightful stories and blogs on Parcharmanch.",
+      "Read insightful stories and blogs on flat for rent in faridabad.",
     alternates: {
-      canonical: `https://www.parcharmanch.in/blog/${slug}`,
+      canonical: `https://www.flatforrentinfaridabad.com/blog/${slug}`,
     },
   };
 }

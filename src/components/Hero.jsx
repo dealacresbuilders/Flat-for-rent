@@ -106,9 +106,9 @@ const HeroSection = () => {
         <div className="md:col-span-5 lg:col-span-4">
           <div className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl border border-white/20 shadow-2xl text-white">
 
-            <h3 className="text-2xl font-semibold mb-2 text-[#ffffff]">
+            <h2 className="text-2xl font-semibold mb-2 text-[#ffffff]">
               Book Rental Visit
-            </h3>
+            </h2>
 
             <p className="text-sm mb-6 text-gray-300">
               Submit your details to get the best rental deals.

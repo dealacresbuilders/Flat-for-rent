@@ -77,9 +77,9 @@ export default function Properties() {
     >
       {/* HEADING */}
       <div className="max-w-7xl mx-auto mb-10 sm:mb-12">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
           Flats for Rent in Faridabad
-        </h1>
+        </h2>
 
         <p className="mt-3 sm:mt-4 text-gray-500 max-w-2xl text-sm sm:text-base">
           Explore premium rental flats in prime sectors of Faridabad.

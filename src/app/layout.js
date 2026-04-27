@@ -20,15 +20,11 @@ const geistMono = Geist_Mono({
 
 // ✅ Metadata (Proper SEO Pattern)
 export const metadata = {
-  title: "Flat for Rent in Faridabad | 1BHK, 2BHK, 3BHK,4BHK Flats",
+  title: "Flat for Rent in Faridabad | Affordable Apartments & Flats on Rent",
   description:
-    "Find verified flats for rent in Faridabad including 1BHK, 2BHK, and 3BHK at best prices. Explore affordable rental properties in prime locations.",
+    "Find verified flats for rent in Faridabad. Explore affordable 1 BHK, 2 BHK & 3 BHK apartments on rent in Sector 82, 85, 86, 88, Neharpar & more. No brokerage. Book free site visit today.",
   keywords: [
-    "flat for rent faridabad",
-    "1 bhk flat faridabad",
-    "2 bhk flat faridabad",
-    "3 bhk flat faridabad",
-    "apartments for rent faridabad",
+    "flat for rent in Faridabad", "apartment for rent Faridabad", "flats on rent Faridabad", "1 BHK flat for rent Faridabad", "2 BHK flat for rent Faridabad", "3 BHK flat for rent Faridabad", "furnished flat for rent Faridabad", "affordable flat on rent Faridabad", "no brokerage flat rent Faridabad", "flat rent Neharpar Faridabad", "monthly rent flat Faridabad", "flat for rent Sector 86 Faridabad"
   ],
   alternates: {
     canonical: "https://www.flatforrentinfaridabad.com/",

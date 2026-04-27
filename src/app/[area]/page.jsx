@@ -2,6 +2,39 @@ import FilterProperties from "./FilterProperties";
 
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 import Breadcrumb from "@/components/Breadcrumb";
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const rawArea = resolvedParams?.area;
+
+  const area = rawArea?.replace("flat-for-rent-in-", "");
+
+  const formattedArea = area
+    ?.replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  const locationName = formattedArea || "Faridabad";
+
+  return {
+    title: `Flats for Rent in ${locationName} | Affordable Rental Apartments`,
+
+    description: `Find flats for rent in ${locationName}. Explore 1BHK, 2BHK, 3BHK rental apartments with modern amenities, good connectivity, and affordable pricing in ${locationName}.`,
+
+    keywords: [
+      `flats for rent in ${locationName}`,
+      `rent flat ${locationName}`,
+      `1BHK rent ${locationName}`,
+      `2BHK rent ${locationName}`,
+      `3BHK rent ${locationName}`,
+      `affordable flats ${locationName}`,
+      `furnished flats ${locationName}`,
+      `${locationName} rental properties`,
+    ],
+
+    alternates: {
+      canonical: `https://www.flatsforrentingurgaon.com/${rawArea}`,
+    },
+  };
+}
 export default async function Page({ params }) {
   const resolvedParams = await params;
     // slug format → sector-9 → Sector 9
