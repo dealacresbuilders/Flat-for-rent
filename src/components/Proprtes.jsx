@@ -10,13 +10,13 @@ import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 
 export default function Properties() {
-  const { properties, loading, error } = useProperty();
+  const { properties, loading, error, page2, setPage2,
+    totalItems, itemsPerPage, } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
 
   const propertySectionRef = useRef(null);
-  const itemsPerPage = 150;
+ 
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -63,11 +63,6 @@ export default function Properties() {
     );
   }
 
-  /* ================= PAGINATION ================= */
-  const totalItems = properties.length;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentProperties = properties.slice(startIndex, endIndex);
 
   return (
     <section
@@ -97,7 +92,7 @@ export default function Properties() {
 
         {/* LEFT */}
         <div className="lg:col-span-2 space-y-6 sm:space-y-8">
-          {currentProperties.map((property) => (
+          {properties.map((property) => (
             <div
               key={property._id}
               className="bg-white rounded-2xl border border-gray-100 
@@ -244,9 +239,9 @@ export default function Properties() {
             <Pagination
               totalItems={totalItems}
               itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
+              currentPage={page2}
               onPageChange={(page) => {
-                setCurrentPage(page);
+                setPage2(page);
 
                 const yOffset = -90;
                 const y =
