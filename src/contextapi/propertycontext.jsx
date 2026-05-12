@@ -51,31 +51,51 @@ const [page2,setPage2]=useState(1);
 
   // ================= BHK FILTER + PAGINATION =================
 
-  const [loading3, setLoading3] = useState(false);
-  const [error3, setError3] = useState(null);
+ const [loading3, setLoading3] = useState(false);
+const [error3, setError3] = useState(null);
 
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+const [data2, setData2] = useState([]);
 
-  const fetchPropertiesByType = async (type, pageNumber = 1) => {
-    try {
-      setLoading3(true);
-      setError3(null);
+const [page, setPage] = useState(1);
+const [totalPages, setTotalPages] = useState(1);
 
-      const res = await axios.get(
-        `https://faridabad-backend.onrender.com/api/listed-properties/getPropertiesByType/${type}/${domain}?page=${pageNumber}`
-      );
+const [type, setType] = useState("");
 
-      setProperties(res.data?.data || []);
-      setTotalPages(res.data?.totalPages || 1);
-      setPage(pageNumber);
+const fetchPropertiesByType = async () => {
 
-    } catch (err) {
-      setError3("Type filter failed");
-    } finally {
-      setLoading3(false);
-    }
-  };
+  try {
+
+    if (!type) return;
+
+    setLoading3(true);
+    setError3(null);
+
+    const res = await axios.get(
+      `https://faridabad-backend.onrender.com/api/listed-properties/getPropertiesByType/${type}/${domain}?page=${page}`
+    );
+
+    setData2(res.data?.data || []);
+
+    setTotalPages(res.data?.totalPages || 1);
+
+  } catch (err) {
+
+    setError3("Type filter failed");
+
+  } finally {
+
+    setLoading3(false);
+
+  }
+};
+
+useEffect(() => {
+
+  if (type) {
+    fetchPropertiesByType();
+  }
+
+}, [page, type]);
 
   // ================= LOCALITY FILTER =================
 
@@ -128,7 +148,7 @@ const [page2,setPage2]=useState(1);
         page,
         totalPages,
         setPage,
-
+data2,setData2,type,setType,
         // locality
         data,
         loading2,
