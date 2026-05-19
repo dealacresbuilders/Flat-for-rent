@@ -104,7 +104,10 @@ export default function Properties() {
                 {/* IMAGE */}
                 <div className="relative w-full md:w-[45%] h-48 md:h-auto">
                   <Image
-                    src={property?.media?.url || "/no-image.png"}
+                    src={property?.media?.url ?
+                      property?.media?.url
+                      :"https://res.cloudinary.com/do84xjpmx/image/upload/v1778824608/faridabadProperties/karmhvblcsha3fngnqa1.webp"
+                    }
                     unoptimized
                     alt={property.title}
                     width={600}

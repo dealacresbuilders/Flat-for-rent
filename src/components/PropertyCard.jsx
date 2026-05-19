@@ -24,9 +24,12 @@ export default function PropertyCard({ property }) {
       transition duration-300 overflow-hidden flex flex-col h-full">
 
         {/* IMAGE */}
-        <div className="relative w-full h-40">
+        <div className="relative w-full h-52">
           <Image
-            src={property?.media?.url || "/no-image.png"}
+            src={property?.media?.url ?
+                      property?.media?.url
+                      :"https://res.cloudinary.com/do84xjpmx/image/upload/v1778824608/faridabadProperties/karmhvblcsha3fngnqa1.webp"
+                    }
             unoptimized
             alt={property.title}
             width={400}
