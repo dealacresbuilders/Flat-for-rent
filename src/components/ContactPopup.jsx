@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-export default function ContactPopup({ isOpen, onClose, propertyTitle }) {
+export default function ContactPopup({
+  isOpen,
+  onClose,
+  propertyTitle,
+}) {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -17,47 +22,79 @@ export default function ContactPopup({ isOpen, onClose, propertyTitle }) {
     const { name, value } = e.target;
 
     if (name === "phone") {
+      // Only numbers
       if (!/^\d*$/.test(value)) return;
+
+      // Max 10 digits
       if (value.length > 10) return;
     }
 
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation
     if (formData.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      toast.error("Phone number must be 10 digits");
       return;
     }
 
+    const website =
+      typeof window !== "undefined"
+        ? window.location.hostname.replace("www.", "")
+        : "";
+
     try {
       setLoading(true);
+
+      const payload = {
+        ...formData,
+        propertyTitle,
+        website,
+        source: "Rental Popup Form",
+      };
+
+      console.log("PAYLOAD:", payload);
 
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...formData,
-          propertyTitle,
-        }),
+        body: JSON.stringify(payload),
       });
+
+      console.log("STATUS:", res.status);
 
       const data = await res.json();
 
+      console.log("RESPONSE:", data);
+
       if (data.success) {
-        alert("Rental Enquiry Submitted Successfully!");
-        setFormData({ name: "", phone: "", message: "" });
+        toast.success(
+          "Rental Enquiry Submitted Successfully!"
+        );
+
+        setFormData({
+          name: "",
+          phone: "",
+          message: "",
+        });
+
         onClose();
       } else {
-        alert("Something went wrong!");
+        toast.error(
+          data.message || "Something went wrong!"
+        );
       }
-
     } catch (err) {
-      alert("Server error!");
+      console.log("ERROR:", err);
+      toast.error("Server error!");
     } finally {
       setLoading(false);
     }
@@ -118,7 +155,7 @@ export default function ContactPopup({ isOpen, onClose, propertyTitle }) {
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-xl 
             focus:ring-2 focus:ring-[#56021F] focus:border-[#56021F]
-            outline-none resize-none transition placeholder:text-gray-500"
+            outline-none resize-none transition placeholder:text-gray-500 text-black"
           />
 
           <button

@@ -10,6 +10,7 @@ import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 import Pagination from "@/components/PaginationTwo";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import Breadcrumb from "@/components/Breadcrumb";
+import PropertyViewButton from "@/components/PropertyViewButton";
 export default function PropertyTypePage() {
 
   const { propertyType } = useParams();
@@ -255,13 +256,22 @@ useEffect(() => {
                       >
                         Contact Now
                       </button>
-
-                      <Link
+<PropertyViewButton
+  slug={property.slug}
+  text="View Details"
+  className="border border-[#56021F]
+  text-[#56021F]
+  px-6 py-2 rounded-full
+  hover:bg-[#cea7b6]
+  transition w-full md:w-auto
+  text-center"
+/>
+                      {/* <Link
                         href={`/properties/${property.slug}`}
                         className="border border-[#56021F] text-[#56021F] px-6 py-2 rounded-full hover:bg-[#cea7b6] transition w-full md:w-auto text-center"
                       >
                         View Details
-                      </Link>
+                      </Link> */}
 
                     </div>
                   </div>
