@@ -11,6 +11,9 @@ const createSlug = (location) => {
     .replace(/-+/g, "-");
 };
 
+const currentDate =
+    new Date().toISOString();
+
 export async function generateSitemap() {
   const baseUrl =
     "https://www.flatforrentinfaridabad.com";
@@ -22,38 +25,47 @@ export async function generateSitemap() {
   const staticUrls = `
     <url>
       <loc>${baseUrl}/</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
 
     <url>
       <loc>${baseUrl}/about</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
 
     <url>
       <loc>${baseUrl}/contact</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
 
     <url>
       <loc>${baseUrl}/blog</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
 
     <url>
       <loc>${baseUrl}/how-it-works</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
 
     <url>
       <loc>${baseUrl}/listing/1-bhk-flat-for-rent-faridabad</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
 
     <url>
       <loc>${baseUrl}/listing/2-bhk-flat-for-rent-faridabad</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
 
     <url>
       <loc>${baseUrl}/listing/3-bhk-flat-for-rent-faridabad</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
 
     <url>
       <loc>${baseUrl}/listing/4-bhk-flat-for-rent-faridabad</loc>
+      <lastmod>${currentDate}</lastmod>
     </url>
   `;
 
@@ -85,6 +97,7 @@ try {
     return `
       <url>
         <loc>${baseUrl}/blog/${slug}</loc>
+      <lastmod>${currentDate}</lastmod>
       </url>
     `;
   });
@@ -106,6 +119,7 @@ try {
           <loc>
             ${baseUrl}/flat-for-rent-in-${slug}-faridabad
           </loc>
+      <lastmod>${currentDate}</lastmod>
         </url>
       `;
     }
