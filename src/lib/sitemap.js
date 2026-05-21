@@ -12,61 +12,117 @@ const createSlug = (location) => {
 };
 
 export async function generateSitemap() {
-  const baseUrl = "https://www.flatforrentinfaridabad.com";
+  const baseUrl =
+    "https://www.flatforrentinfaridabad.com";
 
-  // 🔹 Static URLs
+  const apiDomain =
+    "www.flatforrentinfaridabad.com";
+
+  // ================= STATIC URLS =================
   const staticUrls = `
-    <url><loc>${baseUrl}/</loc></url>
-    <url><loc>${baseUrl}/about</loc></url>
-    <url><loc>${baseUrl}/contact</loc></url>
-    <url><loc>${baseUrl}/blog</loc></url>
-    <url><loc>${baseUrl}/how-it-works</loc></url>
-    <url><loc>${baseUrl}/listing/1-bhk-flat-for-rent-faridabad</loc></url>
-    <url><loc>${baseUrl}/listing/2-bhk-flat-for-rent-faridabad</loc></url>
-    <url><loc>${baseUrl}/listing/3-bhk-flat-for-rent-faridabad</loc></url>
-    <url><loc>${baseUrl}/listing/4-bhk-flat-for-rent-faridabad</loc></url>
+    <url>
+      <loc>${baseUrl}/</loc>
+    </url>
 
+    <url>
+      <loc>${baseUrl}/about</loc>
+    </url>
+
+    <url>
+      <loc>${baseUrl}/contact</loc>
+    </url>
+
+    <url>
+      <loc>${baseUrl}/blog</loc>
+    </url>
+
+    <url>
+      <loc>${baseUrl}/how-it-works</loc>
+    </url>
+
+    <url>
+      <loc>${baseUrl}/listing/1-bhk-flat-for-rent-faridabad</loc>
+    </url>
+
+    <url>
+      <loc>${baseUrl}/listing/2-bhk-flat-for-rent-faridabad</loc>
+    </url>
+
+    <url>
+      <loc>${baseUrl}/listing/3-bhk-flat-for-rent-faridabad</loc>
+    </url>
+
+    <url>
+      <loc>${baseUrl}/listing/4-bhk-flat-for-rent-faridabad</loc>
+    </url>
   `;
 
-  // 🔥 BLOG URLs
-  let propertiesUrls = [];
-  try {
-    const res = await axios.get(
-      `https://faridabad-backend.onrender.com/api/listed-properties/getPropertiesSlugs/www.flatforrentinfaridabad.com`
-    );
+  // ================= BLOG URLS =================
+ // ================= BLOG URLS =================
+let blogUrls = [];
 
-    propertiesUrls = res.data.map(
-      (slug) => `
-        <url>
-          <loc>${baseUrl}/properties/${slug}</loc>
-        </url>
-      `
-    );
-  } catch (err) {
-    console.error("Blog fetch error:", err);
-  }
+try {
+  const res = await axios.get(
+    `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${apiDomain}`
+  );
 
-  // 🔥 LOCATION URLs (MAIN PART)
-  const locationUrls = locations.map((loc) => {
-    const slug = createSlug(loc);
+  console.log("FULL RESPONSE:", res.data);
+
+  // 🔥 RESPONSE HANDLE
+  const slugs =
+    res.data?.data ||
+    res.data?.blogs ||
+    res.data ||
+    [];
+
+  blogUrls = slugs.map((item) => {
+    // Agar object hai
+    const slug =
+      typeof item === "string"
+        ? item
+        : item.slug;
 
     return `
       <url>
-        <loc>${baseUrl}/flat-for-rent-in-${slug}-faridabad</loc>
+        <loc>${baseUrl}/blog/${slug}</loc>
       </url>
     `;
   });
 
-  // 🔹 Combine all
+} catch (err) {
+  console.error(
+    "Blog Sitemap Fetch Error:",
+    err.message
+  );
+}
+
+  // ================= LOCATION URLS =================
+  const locationUrls = locations.map(
+    (loc) => {
+      const slug = createSlug(loc);
+
+      return `
+        <url>
+          <loc>
+            ${baseUrl}/flat-for-rent-in-${slug}-faridabad
+          </loc>
+        </url>
+      `;
+    }
+  );
+
+  // ================= ALL URLS =================
   const allUrls = [
     staticUrls,
     ...locationUrls,
-    ...propertiesUrls,
+    ...blogUrls,
   ].join("\n");
 
-  // 🔹 XML Output
+  // ================= XML =================
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
 ${allUrls}
+
 </urlset>`;
 }

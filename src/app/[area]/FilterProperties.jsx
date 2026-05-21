@@ -5,6 +5,7 @@ import { useProperty } from "@/contextapi/propertycontext";
 import Image from "next/image";
 import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
+import PropertyViewButton from "@/components/PropertyViewButton";
 
 export default function FilterProperties({ area }) {
 
@@ -241,7 +242,7 @@ export default function FilterProperties({ area }) {
                     </button>
 
                     {/* VIEW DETAILS (UNCHANGED STYLE) */}
-                    <Link
+                    {/* <Link
                       href={`/properties/${property.slug}`}
   onClick={() => {
     localStorage.setItem("lastLocation", property.city);
@@ -250,8 +251,15 @@ export default function FilterProperties({ area }) {
                       className="text-[#56021F] text-sm font-medium hover:underline cursor-pointer"
                     >
                       View Details →
-                    </Link>
-
+                    </Link> */}
+<PropertyViewButton
+  slug={property.slug}
+  text="View Details →"
+  className="text-[#56021F]
+  text-sm font-medium
+  hover:underline
+  cursor-pointer"
+/>
                   </div>
                 </div>
 

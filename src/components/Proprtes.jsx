@@ -8,6 +8,7 @@ import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
+import PropertyViewButton from "./PropertyViewButton";
 
 export default function Properties() {
   const { properties, loading, error, page2, setPage2,
@@ -206,8 +207,18 @@ export default function Properties() {
     >
       Contact Now
     </button>
-
-    <Link
+<PropertyViewButton
+  slug={property.slug}
+  text="View Details"
+  className="border border-[#56021F]
+  text-[#56021F]
+  px-4 sm:px-6 py-2 rounded-full
+  hover:bg-[#56021F]
+  hover:text-white
+  transition w-full md:w-auto
+  text-center font-medium text-sm"
+/>
+    {/* <Link
      
   href={`/properties/${property.slug}`}
   onClick={() => {
@@ -226,7 +237,7 @@ export default function Properties() {
       hover:text-white transition w-full md:w-auto text-center font-medium text-sm"
     >
       View Details
-    </Link>
+    </Link> */}
 
   </div>
 
