@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import toast from "react-hot-toast";
+import AlertPopup from "@/components/AlertPopup";
 
 export default function ContactPopup({
   isOpen,
@@ -16,16 +16,19 @@ export default function ContactPopup({
 
   const [loading, setLoading] = useState(false);
 
+  const [popup, setPopup] = useState({
+    open: false,
+    type: "",
+    message: "",
+  });
+
   if (!isOpen) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "phone") {
-      // Only numbers
       if (!/^\d*$/.test(value)) return;
-
-      // Max 10 digits
       if (value.length > 10) return;
     }
 
@@ -38,16 +41,14 @@ export default function ContactPopup({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
     if (formData.phone.length !== 10) {
-      toast.error("Phone number must be 10 digits");
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Phone number must be 10 digits",
+      });
       return;
     }
-
-    const website =
-      typeof window !== "undefined"
-        ? window.location.hostname.replace("www.", "")
-        : "";
 
     try {
       setLoading(true);
@@ -55,11 +56,9 @@ export default function ContactPopup({
       const payload = {
         ...formData,
         propertyTitle,
-        website,
+        website:"flatforrentinfaridabad.com",
         source: "Rental Popup Form",
       };
-
-      console.log("PAYLOAD:", payload);
 
       const res = await fetch("/api/submit", {
         method: "POST",
@@ -69,16 +68,14 @@ export default function ContactPopup({
         body: JSON.stringify(payload),
       });
 
-      console.log("STATUS:", res.status);
-
       const data = await res.json();
 
-      console.log("RESPONSE:", data);
-
       if (data.success) {
-        toast.success(
-          "Rental Enquiry Submitted Successfully!"
-        );
+        setPopup({
+          open: true,
+          type: "success",
+          message: "Rental Enquiry Submitted Successfully!",
+        });
 
         setFormData({
           name: "",
@@ -86,15 +83,23 @@ export default function ContactPopup({
           message: "",
         });
 
-        onClose();
+        setTimeout(() => {
+          setPopup({ open: false, type: "", message: "" });
+          onClose?.();
+        }, 1500);
       } else {
-        toast.error(
-          data.message || "Something went wrong!"
-        );
+        setPopup({
+          open: true,
+          type: "error",
+          message: data.message || "Something went wrong!",
+        });
       }
     } catch (err) {
-      console.log("ERROR:", err);
-      toast.error("Server error!");
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Server error!",
+      });
     } finally {
       setLoading(false);
     }
@@ -102,6 +107,15 @@ export default function ContactPopup({
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4">
+     {/* ✅ ALERT POPUP */}
+      <AlertPopup
+        open={popup.open}
+        type={popup.type}
+        message={popup.message}
+        onClose={() =>
+          setPopup({ open: false, type: "", message: "" })
+        }
+      />
       <div className="bg-white w-full max-w-md rounded-2xl p-8 shadow-2xl relative border border-gray-200">
 
         {/* CLOSE BUTTON */}
