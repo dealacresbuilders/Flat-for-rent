@@ -78,7 +78,7 @@ try {
     `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${apiDomain}`
   );
 
-  
+  // console.log("FULL RESPONSE:", res.data);
 
   // 🔥 RESPONSE HANDLE
   const slugs =
@@ -116,9 +116,7 @@ try {
 
       return `
         <url>
-          <loc>
-            ${baseUrl}/flat-for-rent-in-${slug}-faridabad
-          </loc>
+          <loc>${baseUrl}/flat-for-rent-in-${slug}-faridabad</loc>
       <lastmod>${currentDate}</lastmod>
         </url>
       `;
