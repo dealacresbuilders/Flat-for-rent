@@ -94,7 +94,7 @@ export default function PropertyViewButton({
       rel="noopener noreferrer"
       onClick={handleViewClick}
       // className={className}
-      className={`${className} pointer-events-none cursor-default`}
+      className={`${className}`}
     >
       {text}
     </Link>
