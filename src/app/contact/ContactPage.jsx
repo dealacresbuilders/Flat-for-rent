@@ -103,9 +103,9 @@ export default function Page() {
 
         <div className="max-w-7xl mx-auto">
 
-          {/* <div className="py-5">
+          <div className="py-5">
             <Breadcrumb />
-          </div> */}
+          </div>
 
           {/* HEADING */}
           <div className="mb-10">

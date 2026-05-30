@@ -1,9 +1,14 @@
 "use client";
+import Breadcrumb from "@/components/Breadcrumb";
+
 export default function ContentSection() {
     return (
         <section className=" py-8 px-4">
           
             <div className="max-w-6xl mx-auto">
+            <div className="mb-6 flex justify-start">
+   <Breadcrumb />
+  </div>
 
             
                 <h2 className="text-2xl md:text-4xl font-bold text-[#56021F] mb-6">

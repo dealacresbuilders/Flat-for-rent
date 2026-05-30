@@ -5,11 +5,11 @@ import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumb";
 export default function AboutPage() {
   return (
-    <section className="bg-gradient-to-b from-white to-[#f4e9ed] px-4 py-20">
+    <section className="bg-gradient-to-b from-white to-[#f4e9ed] px-4 py-8">
       <div className="max-w-7xl mx-auto">
-        {/* <div>
+        <div>
           <Breadcrumb/>
-        </div> */}
+        </div>
 
         {/* ================= HERO SPLIT SECTION ================= */}
         <div className="grid md:grid-cols-2 gap-16 items-center mb-28">
