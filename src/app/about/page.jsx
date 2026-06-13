@@ -8,6 +8,10 @@ export const metadata = {
   keywords: [
   "flat rental experts Faridabad", "trusted real estate agents Faridabad", "apartment rental consultants Faridabad", "verified rental flats Faridabad", "best property dealers Faridabad", "Faridabad rental property experts", "no brokerage flat rent Faridabad", "about us real estate Faridabad", "flat on rent dealers Faridabad", "rental home experts Faridabad"
   ],
+   alternates: {
+    canonical:
+      "https://www.flatforrentinfaridabad.com/about",
+  },
 };
 
 export default function Page() {

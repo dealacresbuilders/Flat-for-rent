@@ -19,6 +19,10 @@ export const metadata = {
   keywords: [
     "how to rent flat in Faridabad", "flat renting process Faridabad", "apartment rental steps Faridabad", "flat booking on rent Faridabad", "rental guide Faridabad", "rent apartment Faridabad", "no brokerage flat rent Faridabad", "verified rental flats Faridabad", "rent agreement Faridabad", "easy flat rental Faridabad"
   ],
+  alternates: {
+    canonical:
+      "https://www.flatforrentinfaridabad.com/how-it-works",
+  },
 };
 
 export default function Page() {

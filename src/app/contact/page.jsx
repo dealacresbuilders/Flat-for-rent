@@ -7,6 +7,10 @@ export const metadata = {
   keywords: [
   "contact flat rental agent Faridabad", "rent flat Faridabad enquiry", "rental property consultation Faridabad", "flat on rent helpline Faridabad", "free site visit rental Faridabad", "no brokerage flat rent enquiry Faridabad", "Faridabad rental property contact", "real estate rental office Faridabad", "flat rent booking Faridabad", "apartment rental dealer contact Faridabad"
   ],
+  alternates: {
+    canonical:
+      "https://www.flatforrentinfaridabad.com/contact",
+  },
 };
 
 export default function Page() {
