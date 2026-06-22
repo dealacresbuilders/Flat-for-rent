@@ -55,8 +55,10 @@ useEffect(() => {
               <div key={index} className="relative group overflow-visible">
 
                 <Link
-                  href={`/flat-for-rent-in-${createSlug(loc)}-faridabad`}
-                  className="block truncate text-gray-400 hover:text-white transition duration-200"
+key={index}
+  href={`https://www.dealacres.com/properties/flat-for-rent-in-${createSlug(loc)}-faridabad`}
+  target="_blank"
+  rel="noopener noreferrer"                   className="block truncate text-gray-400 hover:text-white transition duration-200"
                 >
                  Flats for Rent in {loc}
                 </Link>
