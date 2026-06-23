@@ -71,8 +71,21 @@ const fetchPropertiesByType = async () => {
     setError3(null);
 
     const res = await axios.get(
-      `https://faridabad-backend.onrender.com/api/listed-properties/getPropertiesByType/${type}/${domain}?page=${page}`
+      `https://faridabad-backend.onrender.com/api/listed-properties/properties`,
+      {
+        params: {
+          listingType: "Rent",
+          propertyType: type,
+          subType: "Flat,Apartment",
+          city: "Faridabad",
+          page,
+          limit: 150,
+        },
+      }
     );
+
+    console.log("API Response", res.data);
+
 
     setData2(res.data?.data || []);
 
