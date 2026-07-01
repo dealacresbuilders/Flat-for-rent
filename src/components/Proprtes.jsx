@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef,useMemo } from "react";
+import { useState, useRef, useMemo } from "react";
 import { useProperty } from "@/contextapi/propertycontext";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,15 +10,16 @@ import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import PropertyViewButton from "./PropertyViewButton";
 import FeaturedLocations from "./FeaturedLocations";
+import PropertyBottomLinks from "@/components/PropertyBottomLinks";
 
 export default function Properties() {
   const { properties, loading, error, page2, setPage2,
-    totalItems, itemsPerPage,areas } = useProperty();
+    totalItems, itemsPerPage, areas } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
 
   const propertySectionRef = useRef(null);
- 
+
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -30,14 +31,14 @@ export default function Properties() {
   };
 
   const localities = useMemo(() => {
-      return [
-        ...new Set(
-          properties
-            ?.map((item) => item?.locality)
-            .filter(Boolean)
-        ),
-      ];
-    }, [properties]);
+    return [
+      ...new Set(
+        properties
+          ?.map((item) => item?.locality)
+          .filter(Boolean)
+      ),
+    ];
+  }, [properties]);
 
   /* ================= LOADING ================= */
   if (loading) {
@@ -105,10 +106,10 @@ export default function Properties() {
         {/* LEFT */}
         <div className="lg:col-span-2 space-y-6 sm:space-y-8">
           {properties.map((property, index) => {
-           const areaBatch = areas?.slice(
-  Math.floor(index / 30) * 10,
-  Math.floor(index / 30) * 10 + 10
-) || [];
+            const areaBatch = areas?.slice(
+              Math.floor(index / 30) * 10,
+              Math.floor(index / 30) * 10 + 10
+            ) || [];
 
             return (
               <div
@@ -117,131 +118,131 @@ export default function Properties() {
               >
 
                 {/* PROPERTY CARD */}
-            <div
-              // key={property._id}
-              className="bg-white rounded-2xl border border-gray-100 
+                <div
+                  // key={property._id}
+                  className="bg-white rounded-2xl border border-gray-100 
               shadow-sm hover:shadow-2xl hover:-translate-y-1 
               transition duration-300 overflow-hidden md:h-[250px]"
-            >
-              <div className="flex flex-col md:flex-row md:h-full h-full">
+                >
+                  <div className="flex flex-col md:flex-row md:h-full h-full">
 
-                {/* IMAGE */}
-                <div className="relative w-full md:w-[45%] h-48 md:h-auto">
-                  <Image
-                    src={property?.media?.url ?
-                      property?.media?.url
-                      :"https://res.cloudinary.com/do84xjpmx/image/upload/v1778824608/faridabadProperties/karmhvblcsha3fngnqa1.webp"
-                    }
-                    unoptimized
-                    alt={property.title}
-                    width={600}
-                    height={400}
-                    className="w-full h-full object-cover"
-                  />
-                  <span className="absolute top-3 left-3 bg-[#56021F] text-white text-xs px-3 py-1 rounded-full shadow font-medium">
-                    {property.propertyType}
-                  </span>
-                </div>
-
-                {/* CONTENT */}
-                <div className="p-6 flex flex-col w-full min-w-0">
-  
-  <h2 className="text-xl font-bold text-gray-900 overflow-hidden md:whitespace-nowrap md:text-ellipsis">
-    {property.title}
-  </h2>
-
-                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-4 h-4 text-gray-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 21s-6-5.33-6-10a6 6 0 1112 0c0 4.67-6 10-6 10z"
+                    {/* IMAGE */}
+                    <div className="relative w-full md:w-[45%] h-48 md:h-auto">
+                      <Image
+                        src={property?.media?.url ?
+                          property?.media?.url
+                          : "https://res.cloudinary.com/do84xjpmx/image/upload/v1778824608/faridabadProperties/karmhvblcsha3fngnqa1.webp"
+                        }
+                        unoptimized
+                        alt={property.title}
+                        width={600}
+                        height={400}
+                        className="w-full h-full object-cover"
                       />
-                      <circle cx="12" cy="11" r="2.5" />
-                    </svg>
-
-                    {property.locality}
-                  </p>
-                  {/* INFO BAR */}
-                  <div className="mt-3 bg-gray-50 border border-gray-200 rounded-xl px-3 sm:px-5 py-3 flex flex-col sm:flex-row sm:flex-wrap md:flex-nowrap items-start sm:items-center justify-between gap-2 sm:gap-3 text-xs sm:text-sm">
-
-                    <div>
-                      <span className="text-gray-400 uppercase text-[10px]">
-                        Area:
-                      </span>{" "}
-                      <span className="font-semibold text-gray-900">
-                        {formatArea(property.area, property.areaUnit)}
+                      <span className="absolute top-3 left-3 bg-[#56021F] text-white text-xs px-3 py-1 rounded-full shadow font-medium">
+                        {property.propertyType}
                       </span>
                     </div>
 
-                    <div>
-                      <span className="text-gray-400 uppercase text-[10px]">
-                        Type:
-                      </span>{" "}
-                      <span className="font-semibold text-gray-900">
-                        {property.propertyCategory}
-                      </span>
-                    </div>
+                    {/* CONTENT */}
+                    <div className="p-6 flex flex-col w-full min-w-0">
 
-                    <div>
-                      <span className="text-gray-400 uppercase text-[10px]">
-                        Status:
-                      </span>{" "}
-                      <span className="font-semibold text-[#56021F]">
-                        {property.status || "Available for Rent"}
-                      </span>
-                    </div>
+                      <h2 className="text-xl font-bold text-gray-900 overflow-hidden md:whitespace-nowrap md:text-ellipsis">
+                        {property.title}
+                      </h2>
 
-                  </div>
+                      <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-4 h-4 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 21s-6-5.33-6-10a6 6 0 1112 0c0 4.67-6 10-6 10z"
+                          />
+                          <circle cx="12" cy="11" r="2.5" />
+                        </svg>
 
-                  {/* <p className="text-xs sm:text-sm text-gray-500 mt-3 line-clamp-2 leading-relaxed">
+                        {property.locality}
+                      </p>
+                      {/* INFO BAR */}
+                      <div className="mt-3 bg-gray-50 border border-gray-200 rounded-xl px-3 sm:px-5 py-3 flex flex-col sm:flex-row sm:flex-wrap md:flex-nowrap items-start sm:items-center justify-between gap-2 sm:gap-3 text-xs sm:text-sm">
+
+                        <div>
+                          <span className="text-gray-400 uppercase text-[10px]">
+                            Area:
+                          </span>{" "}
+                          <span className="font-semibold text-gray-900">
+                            {formatArea(property.area, property.areaUnit)}
+                          </span>
+                        </div>
+
+                        <div>
+                          <span className="text-gray-400 uppercase text-[10px]">
+                            Type:
+                          </span>{" "}
+                          <span className="font-semibold text-gray-900">
+                            {property.propertyCategory}
+                          </span>
+                        </div>
+
+                        <div>
+                          <span className="text-gray-400 uppercase text-[10px]">
+                            Status:
+                          </span>{" "}
+                          <span className="font-semibold text-[#56021F]">
+                            {property.status || "Available for Rent"}
+                          </span>
+                        </div>
+
+                      </div>
+
+                      {/* <p className="text-xs sm:text-sm text-gray-500 mt-3 line-clamp-2 leading-relaxed">
                     {property.description2 ||
                       "Modern rental flat in a prime location with excellent connectivity and amenities."}
                   </p> */}
 
-                  <div className="flex-1" />
+                      <div className="flex-1" />
 
-                  {/* PRICE + BUTTONS */}
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mt-4">
+                      {/* PRICE + BUTTONS */}
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mt-4">
 
-  {/* PRICE */}
-  <p className="text-xl sm:text-2xl font-bold text-[#56021F]">
-    ₹ {property.price?.toLocaleString("en-IN")}
-  </p>
+                        {/* PRICE */}
+                        <p className="text-xl sm:text-2xl font-bold text-[#56021F]">
+                          ₹ {property.price?.toLocaleString("en-IN")}
+                        </p>
 
-  {/* BUTTONS */}
-  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
+                        {/* BUTTONS */}
+                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
 
-    <button
-      onClick={() => {
-        setSelectedProperty(property.title);
-        setOpen(true);
-      }}
-      className="bg-[#56021F] text-white px-4 sm:px-6 py-2 rounded-full 
+                          <button
+                            onClick={() => {
+                              setSelectedProperty(property.title);
+                              setOpen(true);
+                            }}
+                            className="bg-[#56021F] text-white px-4 sm:px-6 py-2 rounded-full 
       hover:bg-[#3d0116] transition w-full md:w-auto 
       text-center font-medium shadow-sm text-sm"
-    >
-      Contact Now
-    </button>
-<PropertyViewButton
-  slug={property.slug}
-  text="View Details"
-  className="border border-[#56021F]
+                          >
+                            Contact Now
+                          </button>
+                          <PropertyViewButton
+                            slug={property.slug}
+                            text="View Details"
+                            className="border border-[#56021F]
   text-[#56021F]
   px-4 sm:px-6 py-2 rounded-full
   hover:bg-[#56021F]
   hover:text-white
   transition w-full md:w-auto
   text-center font-medium text-sm"
-/>
-    {/* <Link
+                          />
+                          {/* <Link
      
   href={`/properties/${property.slug}`}
   onClick={() => {
@@ -262,21 +263,25 @@ export default function Properties() {
       View Details
     </Link> */}
 
-  </div>
+                        </div>
 
-</div>
-
+                      </div>
+                      <PropertyBottomLinks
+                        propertyType={property.propertyType}
+                        city="faridabad"
+                        color="#56021F"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-           {/* FEATURED */}
+                {/* FEATURED */}
 
                 {(index + 1) % 30 === 0 &&
                   areaBatch.length > 0 && (
                     <FeaturedLocations
                       locations={areaBatch}
                     />
-                )}
+                  )}
 
               </div>
             );
